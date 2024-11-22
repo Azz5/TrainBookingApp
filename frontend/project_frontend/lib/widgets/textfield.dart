@@ -32,7 +32,9 @@ class TextFieldContainer extends StatelessWidget {
           const SizedBox(width: 20,),
           Expanded(
             child: TextField(
-              controller: string == "Email"? context.read<LoginProvider>().emailController : context.read<LoginProvider>().passwordController,
+              controller: string == "Email"? context.read<LoginProvider>().emailController :  
+                          string == "Password"? context.read<LoginProvider>().passwordController : 
+                          context.read<LoginProvider>().confirmedPasswordController,
               keyboardType: TextInputType.text,
               onChanged: (value)=> string == "Email"? context.read<LoginProvider>().enterEmail(value) : 
                                    string == "Password"? context.read<LoginProvider>().enterPassword(value) :

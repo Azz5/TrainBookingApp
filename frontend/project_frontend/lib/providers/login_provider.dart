@@ -7,6 +7,7 @@ class LoginProvider extends ChangeNotifier{
   String confirmedPassword;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmedPasswordController = TextEditingController();
 
   LoginProvider({
     this.email = "",
