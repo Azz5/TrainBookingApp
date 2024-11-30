@@ -1,0 +1,51 @@
+# Node.js dependencies
+node_modules/
+
+# TypeScript build output
+dist/
+build/
+out/
+
+# Environment files (never commit sensitive information)
+.env
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# TypeScript build artifacts
+*.tsbuildinfo
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE or editor directories
+.vscode/
+.idea/
+*.sublime-workspace
+
+# NPM package lock files (only if you want to ignore them)
+# package-lock.json
+# yarn.lock
+
+# Dependency directories
+.bower_components/
+
+# Test coverage
+coverage/
+
+# Miscellaneous files
+*.tgz
+
+# Frontend build artifacts (if applicable)
+# Uncomment if you're using frontend build tools like React, Vue, etc.
+# dist/
+# build/
+# .next/
+
+# Docker files (if you're using Docker)
+docker-compose.yml
+Dockerfile
