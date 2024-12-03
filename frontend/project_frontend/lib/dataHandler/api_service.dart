@@ -2,7 +2,69 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://192.168.56.1:3333';
+  static const String baseUrl = 'http://127.0.0.1:3333';
+
+  // ----------- PASSENGERS -----------
+  // Get all passengers
+  static Future<List<dynamic>> getAllPassengers() async {
+    final response = await http.get(Uri.parse('$baseUrl/passengers'));
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to fetch passengers');
+    }
+  }
+
+  // Get a passenger by ID
+  static Future<Map<String, dynamic>> getPassengerByID(String id) async {
+    final response = await http.get(Uri.parse('$baseUrl/passengers/$id'));
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 404) {
+      throw Exception('Passenger not found');
+    } else {
+      throw Exception('Failed to fetch passenger by ID');
+    }
+  }
+
+  // Create a new passenger
+  static Future<void> createPassenger(
+      Map<String, dynamic> passengerData) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/passengers'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(passengerData),
+    );
+
+    if (response.statusCode != 201) {
+      throw Exception('Failed to create passenger');
+    }
+  }
+
+  // Update a passenger
+  static Future<void> updatePassenger(
+      String id, Map<String, dynamic> passengerData) async {
+    final response = await http.put(
+      Uri.parse('$baseUrl/passengers/$id'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(passengerData),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update passenger');
+    }
+  }
+
+  // Delete a passenger
+  static Future<void> deletePassenger(String id) async {
+    final response = await http.delete(Uri.parse('$baseUrl/passengers/$id'));
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to delete passenger');
+    }
+  }
 
   // ----------- STATIONS -----------
   static Future<List<dynamic>> getAllStations() async {
