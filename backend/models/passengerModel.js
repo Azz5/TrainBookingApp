@@ -3,6 +3,7 @@ import pool from "../config/db.js";
 // Get all passengers
 export const getAllPassengers = async () => {
     const [rows] = await pool.query('SELECT * FROM Passenger');
+    console.log(rows)
     return rows;
 };
 

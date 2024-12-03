@@ -1,13 +1,10 @@
 import express from "express"
-import { getAllPassengers } from "./models/passengerModel.js"
+import passengerController from './controllers/passengerController.js'
+const app = express();
 
-const app = express()
+app.use("/passenger",passengerController)
 
-app.get('/', async (req,res) => {
-    const data = getAllPassengers();
-    res.send(await data)
-})
-
-app.listen((4444) , ()=> {
-    console.log("SERVER  IS  ON !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+const port = 3333 || process.env.PORTU
+app.listen(port, (req,res) => {
+    console.log(`Server on ${port}`)
 })
