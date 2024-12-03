@@ -7,7 +7,7 @@ class ApiService {
   // ----------- PASSENGERS -----------
   // Get all passengers
   static Future<List<dynamic>> getAllPassengers() async {
-    final response = await http.get(Uri.parse('$baseUrl/passengers'));
+    final response = await http.get(Uri.parse('$baseUrl/passenger'));
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -18,7 +18,7 @@ class ApiService {
 
   // Get a passenger by ID
   static Future<Map<String, dynamic>> getPassengerByID(String id) async {
-    final response = await http.get(Uri.parse('$baseUrl/passengers/$id'));
+    final response = await http.get(Uri.parse('$baseUrl/passenger/$id'));
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -33,7 +33,7 @@ class ApiService {
   static Future<void> createPassenger(
       Map<String, dynamic> passengerData) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/passengers'),
+      Uri.parse('$baseUrl/passenger'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(passengerData),
     );
@@ -47,7 +47,7 @@ class ApiService {
   static Future<void> updatePassenger(
       String id, Map<String, dynamic> passengerData) async {
     final response = await http.put(
-      Uri.parse('$baseUrl/passengers/$id'),
+      Uri.parse('$baseUrl/passenger/$id'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(passengerData),
     );
@@ -59,7 +59,7 @@ class ApiService {
 
   // Delete a passenger
   static Future<void> deletePassenger(String id) async {
-    final response = await http.delete(Uri.parse('$baseUrl/passengers/$id'));
+    final response = await http.delete(Uri.parse('$baseUrl/passenger/$id'));
 
     if (response.statusCode != 200) {
       throw Exception('Failed to delete passenger');
