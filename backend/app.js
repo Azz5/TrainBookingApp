@@ -4,17 +4,17 @@ import passengerController from './controllers/passengerController.js';
 import reservationController from './controllers/reservationController.js';
 import scheduleController from './controllers/scheduleController.js';
 import stationController from './controllers/stationController.js';
-import ticketController from './controllers/ticketController.js'
-import trainController from './controller/trainController.js'
+import ticketController from './controllers/ticketController.js';
+import trainController from './controllers/trainController.js';
 
 const app = express();
 
-app.use("/api/passenger",passengerController)
-app.use("/api/reservation",reservationController )
-app.use("/api/schedule",scheduleController )
-app.use("/api/station",stationController )
-app.use("/api/ticket",ticketController )
-app.use("/api/train",trainController )
+app.use("/passenger",passengerController)
+app.use("/reservation",reservationController )
+app.use("/schedule",scheduleController )
+app.use("/station",stationController )
+app.use("/ticket",ticketController )
+app.use("/train",trainController )
 
 
 
