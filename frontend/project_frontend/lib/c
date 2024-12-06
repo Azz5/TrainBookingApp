@@ -1,0 +1,58 @@
+// Row(
+//                 children: [
+//                   SizedBox(
+//                     width: 180,
+//                     height: 200,
+//                     child: DropdownMenu<LocationFilter>(
+//                       leadingIcon: const Icon(Icons.location_on_outlined),
+//                         hintText: "From",
+//                         onSelected: (LocationFilter? filter) {
+//                           filter != null
+//                               ? setState(() {
+//                                   fromFilter[filter] = true;
+//                                   fromFilter.forEach((key, _) {
+//                                     if (key != filter) fromFilter[key] = false;
+//                                   });
+//                                 })
+//                               : null;
+//                         },
+//                         dropdownMenuEntries: const [
+//                           DropdownMenuEntry(
+//                               value: LocationFilter.riyadh, label: "Riyadh"),
+//                           DropdownMenuEntry(
+//                               value: LocationFilter.dammam, label: "Dammam"),
+//                           DropdownMenuEntry(
+//                               value: LocationFilter.jeddah, label: "Jeddah"),
+//                           DropdownMenuEntry(
+//                               value: LocationFilter.abhah, label: "Abhah"),
+//                         ]),
+//                   ),
+//                   const Icon(Icons.arrow_right_alt),
+//                                       SizedBox(
+//                     width: 180,
+//                     child: DropdownMenu<LocationFilter>(
+//                       leadingIcon: const Icon(Icons.location_on_outlined),
+//                         hintText: "To",
+//                         onSelected: (LocationFilter? filter) {
+//                           filter != null
+//                               ? setState(() {
+//                                   toFilter[filter] = true;
+//                                   toFilter.forEach((key, _) {
+//                                     if (key != filter) toFilter[key] = false;
+//                                   });
+//                                 })
+//                               : null;
+//                         },
+//                         dropdownMenuEntries: const [
+//                           DropdownMenuEntry(
+//                               value: LocationFilter.riyadh, label: "Riyadh"),
+//                           DropdownMenuEntry(
+//                               value: LocationFilter.dammam, label: "Dammam"),
+//                           DropdownMenuEntry(
+//                               value: LocationFilter.jeddah, label: "Jeddah"),
+//                           DropdownMenuEntry(
+//                               value: LocationFilter.abhah, label: "Abhah"),
+//                         ]),
+//                   ),
+//                 ],
+//               ),

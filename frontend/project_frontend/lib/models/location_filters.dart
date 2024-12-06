@@ -1,0 +1,1 @@
+enum LocationFilter{riyadh, dammam, jeddah, abhah}

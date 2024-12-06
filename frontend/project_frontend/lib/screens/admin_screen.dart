@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 
 class AdminScreen extends StatefulWidget{
@@ -16,15 +15,26 @@ class AdminScreenState extends State<AdminScreen>{
   @override
   Widget build(BuildContext context) {
 
-    FirebaseAuth auth = FirebaseAuth.instance;
+    //FirebaseAuth auth = FirebaseAuth.instance;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(index == 0 ? "Trains" : index == 1 ? "Seats" : "Payment"),
+        ),
       body: Center(
-        child: ElevatedButton(onPressed: () async{
-          await auth.signOut();
-          Navigator.pop(context);
-          }, 
-        child: const Text("Logout")),
+        child: GridView(
+  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    crossAxisSpacing: 30,
+    mainAxisSpacing: 30, // Optional: To control the vertical spacing
+  ),
+  children: [
+    Container(
+      padding: const EdgeInsets.all(8),
+      child: const Text(""),
+    )
+  ],
+),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
@@ -37,6 +47,11 @@ class AdminScreenState extends State<AdminScreen>{
     );
   }
 }
+
+// ElevatedButton(onPressed: () async{
+//           await auth.signOut();
+//           Navigator.pop(context);
+//           }, 
 
 
 
