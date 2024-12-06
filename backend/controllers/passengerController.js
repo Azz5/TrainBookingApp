@@ -1,9 +1,15 @@
 import express from "express";
-import { getAllPassengers, getPassengerByID, deletePassenger, createPassenger, updatePassenger } from "../models/passengerModel.js";
-
+import {
+    getAllPassengers,
+    getPassengerByID,
+    deletePassenger,
+    createPassenger,
+    updatePassenger
+} from "../models/passengerModel.js";
 
 const router = express.Router();
 
+// Get all passengers
 router.get("/", async (req, res) => {
     try {
         const passengers = await getAllPassengers();
@@ -14,6 +20,7 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Get a passenger by ID
 router.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
@@ -26,6 +33,24 @@ router.get("/:id", async (req, res) => {
     } catch (e) {
         console.error(e);
         res.status(500).json({ error: "Failed to fetch passenger by ID" });
+    }
+});
+
+// Create a new passenger
+router.post("/", async (req, res) => {
+    try {
+        const { name, age, gender, email } = req.body;
+
+        // Validate input
+        if (!name || !age || !gender || !email) {
+            return res.status(400).json({ error: "All fields are required to create a passenger" });
+        }
+
+        const newPassenger = await createPassenger({ name, age, gender, email });
+        res.status(201).json({ message: "Passenger created successfully", data: newPassenger });
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: "Failed to create passenger" });
     }
 });
 
@@ -52,12 +77,13 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-router.delete("/:passenger", async (req, res) => {
+// Delete a passenger
+router.delete("/:id", async (req, res) => {
     try {
-        const passengerID = req.params.passenger;
-        if (!passengerID) return res.status(400).json({ error: "Passenger ID is required" });
+        const { id } = req.params;
+        if (!id) return res.status(400).json({ error: "Passenger ID is required" });
 
-        const deleted = await deletePassenger(passengerID);
+        const deleted = await deletePassenger(id);
         if (deleted) {
             res.status(200).json({ message: "Passenger deleted successfully" });
         } else {
@@ -66,21 +92,6 @@ router.delete("/:passenger", async (req, res) => {
     } catch (e) {
         console.error(e);
         res.status(500).json({ error: "Failed to delete passenger" });
-    }
-});
-
-router.post("/", async (req, res) => {
-    try {
-        const passengerData = req.body;
-        if (!passengerData || !passengerData.name || !passengerData.age) {
-            return res.status(400).json({ error: "Invalid passenger data" });
-        }
-
-        const newPassenger = await createPassenger(passengerData);
-        res.status(201).json({ message: "Passenger created successfully", data: newPassenger });
-    } catch (e) {
-        console.error(e);
-        res.status(500).json({ error: "Failed to create passenger" });
     }
 });
 
