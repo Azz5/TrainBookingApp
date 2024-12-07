@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_frontend/dataHandler/api_service.dart';
 
 
 class Trip extends StatelessWidget{
@@ -13,7 +14,8 @@ class Trip extends StatelessWidget{
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => reserveScreen,));
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => reserveScreen,));
+        print(ApiService.getPassengerByID("1"));
       },
       child: Container(
         padding: const EdgeInsets.all(12),

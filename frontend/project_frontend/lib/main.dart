@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_frontend/screens/login_screen.dart';
+import 'package:project_frontend/screens/registration_screens/login_screen.dart';
 import 'package:project_frontend/providers/login_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_frontend/screens/admin_screen.dart';
-import 'package:project_frontend/screens/user_screen.dart';
+import 'package:project_frontend/screens/admin_screens/admin_screen.dart';
+import 'package:project_frontend/screens/user_screens/user_screen_manager.dart';
 import 'package:project_frontend/widgets/textfield.dart';
-import 'package:project_frontend/screens/registration_screen.dart';
+import 'package:project_frontend/screens/registration_screens/registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_frontend/providers/login_provider.dart';
 import 'package:provider/provider.dart';

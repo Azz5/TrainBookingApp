@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_frontend/dataHandler/api_service.dart';
 
 class TrainWidget extends StatelessWidget{
   const TrainWidget({super.key, required this.widget, required this.trainName});
@@ -6,8 +7,11 @@ class TrainWidget extends StatelessWidget{
   final String trainName;
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
-      onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context) => widget,)),      
+      onTap: (){
+      // Navigator.push(context,MaterialPageRoute(builder: (context) => widget,)),
+      print(ApiService.getAllTrains());},  
       child: Container(
         padding: const EdgeInsets.all(8),
         child: Card(

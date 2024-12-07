@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:project_frontend/widgets/icon_seat.dart';
 
-class TrainScreen extends StatelessWidget {
-  const TrainScreen({super.key});
+class SeatsScreen extends StatelessWidget {
+  const SeatsScreen({super.key});
   final List<IconSeat> seatsC1 = const [
     IconSeat(
       id: 1,

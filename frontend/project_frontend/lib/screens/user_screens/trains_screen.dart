@@ -1,24 +1,19 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:project_frontend/screens/train_screen.dart';
-import 'package:project_frontend/models/location_filters.dart';
 import 'package:project_frontend/widgets/trip.dart';
+import 'package:project_frontend/screens/user_screens/seats_screen.dart';
+import 'package:project_frontend/models/location_filters.dart';
 
-class UserScreen extends StatefulWidget {
-  const UserScreen({super.key});
+
+class TrainsScreen extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    return _UserScreenState();
+    return _TrainsScreenState();
   }
 }
 
-class _UserScreenState extends State<UserScreen> {
-  int index = 0;
+class _TrainsScreenState extends State<TrainsScreen>{
   String chosenDate = "";
-  void onChangeIndex(int value) => setState(() {
-        index = value;
-      });
-  Future<void> selectDate() async{
+    Future<void> selectDate() async{
     DateTime? pickedDate = await showDatePicker(
       context: context, 
       initialDate: null,
@@ -33,21 +28,18 @@ class _UserScreenState extends State<UserScreen> {
         });
       }
   }
-
-List<Trip> trips = [
-  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh",reserveScreen: TrainScreen(),),
-  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh",reserveScreen: TrainScreen(),),
-  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh", reserveScreen: TrainScreen(),),
-  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh", reserveScreen: TrainScreen(),),
+  List<Trip> trips = [
+  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh",reserveScreen: SeatsScreen(),),
+  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh",reserveScreen: SeatsScreen(),),
+  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh", reserveScreen: SeatsScreen(),),
+  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh", reserveScreen: SeatsScreen(),),
   ];
-
+  
+  
   @override
   Widget build(BuildContext context) {
-    //FirebaseAuth auth = FirebaseAuth.instance;
 
-    TextEditingController controller = TextEditingController();
-
-    Map<LocationFilter, bool> fromFilter = {
+        Map<LocationFilter, bool> fromFilter = {
       LocationFilter.riyadh: false,
       LocationFilter.dammam: false,
       LocationFilter.jeddah: false,
@@ -60,26 +52,8 @@ List<Trip> trips = [
       LocationFilter.jeddah: false,
       LocationFilter.abhah: false,
     };
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(index == 0
-            ? "Trains"
-            : index == 1
-                ? "Seats"
-                : "Payment"),
-        actions: [
-          index == 0
-              ? AnimSearchBar(
-                  width: 420,
-                  textController: controller,
-                  onSuffixTap: (),
-                  onSubmitted: (String str) {})
-              : Container()
-        ],
-        automaticallyImplyLeading: false,
-      ),
-      body: Column(
+    
+    return Column(
         children: [
           Container(
             padding: const EdgeInsets.all(12),
@@ -114,7 +88,7 @@ List<Trip> trips = [
                           ]),
                       const Icon(Icons.arrow_right_alt),
                                           SizedBox(
-                        width: 180,
+                        width: 174,
                         child: DropdownMenu<LocationFilter>(
                           leadingIcon: const Icon(Icons.location_on_outlined),
                             hintText: "To",
@@ -187,33 +161,6 @@ List<Trip> trips = [
           //   ),
           // ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: index,
-          onTap: (value) => onChangeIndex(value),
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.train), label: "Trains Search"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.assignment), label: "Seats Booking"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.payment), label: "Payment"),
-          ]),
-    );
+      );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ignore_for_file: use_build_context_synchronously
