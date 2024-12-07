@@ -36,7 +36,7 @@ class _UserScreenState extends State<UserScreen> {
                 : "Tickets"),
         automaticallyImplyLeading: false,
       ),
-      body: index == 0? TrainsScreen() : index == 1? const ReservationScreen() : const Text(""),
+      body: index == 0? const TrainsScreen() : index == 1? const ReservationScreen() : const Text(""),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: index,
           onTap: (value) => onChangeIndex(value),

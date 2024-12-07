@@ -47,7 +47,7 @@ class ReservationState extends State<Reservation>{
                   Text("Seat:\n Row 10 Column 2" , style: TextStyle(fontWeight: FontWeight.bold),)
                 ],
               ),
-              const SizedBox(width: 70,),
+              const SizedBox(width: 66,),
               const Text("Payment:\n Uncompleted", style: TextStyle(fontWeight: FontWeight.bold),)
             ],
           ),

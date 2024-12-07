@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:project_frontend/widgets/trip.dart';
 import 'package:project_frontend/screens/user_screens/seats_screen.dart';
 import 'package:project_frontend/models/location_filters.dart';
+import 'package:project_frontend/dataHandler/api_service.dart';
 
 
 class TrainsScreen extends StatefulWidget{
+  const TrainsScreen({super.key});
   @override
   State<StatefulWidget> createState() {
     return _TrainsScreenState();
@@ -12,6 +14,21 @@ class TrainsScreen extends StatefulWidget{
 }
 
 class _TrainsScreenState extends State<TrainsScreen>{
+
+
+late Future<List<dynamic>> stations;
+
+
+
+@override
+  void initState() {
+    super.initState();
+    stations = ApiService.getAllSchedules();  // Call the method and assign to stations
+  }
+
+
+
+
   String chosenDate = "";
     Future<void> selectDate() async{
     DateTime? pickedDate = await showDatePicker(
