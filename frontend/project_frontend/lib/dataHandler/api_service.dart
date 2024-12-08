@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://127.0.0.1:3333';
+  static const String baseUrl = 'http://10.0.2.2:3333';
 
   // ----------- PASSENGERS -----------
   // Get all passengers
@@ -17,30 +17,19 @@ class ApiService {
   }
 
   // Get a passenger by ID
-  // static Future<Map<String, dynamic>> getPassengerByID(String id) async {
-  //   final response = await http.get(Uri.parse('$baseUrl/passenger/$id'));
+  static Future<Map<String, dynamic>> getPassengerByID(String id) async {
+    final response = await http.get(Uri.parse('$baseUrl/passenger/$id'));
 
-  //   if (response.statusCode == 200) {
-  //     return jsonDecode(response.body);
-  //   } else if (response.statusCode == 404) {
-  //     throw Exception('Passenger not found');
-  //   } else {
-  //     throw Exception('Failed to fetch passenger by ID');
-  //   }
-  // }
-
-  static Future<String> getPassengerByID(String id) async {
-  final response = await http.get(Uri.parse('$baseUrl/passenger/$id'));
-
-  if (response.statusCode == 200) {
-    // Decode the JSON response and convert it to a string
-    return response.body;
-  } else if (response.statusCode == 404) {
-    return 'Passenger not found';
-  } else {
-    return 'Failed to fetch passenger by ID';
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 404) {
+      throw Exception('Passenger not found');
+    } else {
+      throw Exception('Failed to fetch passenger by ID');
+    }
   }
-}
+
+
 
   // Create a new passenger
   static Future<void> createPassenger(
