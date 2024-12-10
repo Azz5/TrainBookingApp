@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:project_frontend/screens/user_screens/reservation_screen.dart';
 import 'package:project_frontend/widgets/trip.dart';
 import 'package:project_frontend/screens/user_screens/seats_screen.dart';
 import 'package:project_frontend/models/location_filters.dart';
 import 'package:project_frontend/dataHandler/api_service.dart';
+import 'package:project_frontend/models/models.dart';
+import 'package:project_frontend/widgets/icon_seat.dart';
+
+
+
 
 
 class TrainsScreen extends StatefulWidget{
@@ -16,15 +22,19 @@ class TrainsScreen extends StatefulWidget{
 class _TrainsScreenState extends State<TrainsScreen>{
 
 
-late Future<List<dynamic>> stations;
 
 
 
-@override
-  void initState() {
-    super.initState();
-    stations = ApiService.getAllSchedules();  // Call the method and assign to stations
-  }
+
+// late Future<List<dynamic>> stations;
+
+
+
+// @override
+//   void initState() {
+//     super.initState();
+//     stations = ApiService.getAllSchedules();  // Call the method and assign to stations
+//   }
 
 
 
@@ -45,13 +55,9 @@ late Future<List<dynamic>> stations;
         });
       }
   }
-  List<Trip> trips = [
-  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh",reserveScreen: SeatsScreen(),),
-  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh",reserveScreen: SeatsScreen(),),
-  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh", reserveScreen: SeatsScreen(),),
-  const Trip(arrivalTime: "9:00am", departureTime: "7:00am", trainNo: 1, departureCity: "Dammam", arrivalCity: "Riyadh", reserveScreen: SeatsScreen(),),
-  ];
-  
+
+  List<SeatsScreen> seatScreens = [];
+  List<List<IconSeat>> icons = [];
   
   @override
   Widget build(BuildContext context) {
@@ -152,10 +158,52 @@ late Future<List<dynamic>> stations;
 
           Expanded(
             child: ListView(
-              children: [
-                ...trips
-              ],
-            )),
+  children: [
+    FutureBuilder<List<dynamic>>(
+      future: ApiService.getAllSchedules(), // Replace "1" with actual ID
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading...");
+        } else if (snapshot.hasError) {
+          return Text("Error: ${snapshot.error}");
+        } else if (snapshot.hasData) {
+          final scheduleData = snapshot.data!;
+          List<Trip> trips = [];
+          
+          for (int i = 0; i < scheduleData.length; i++) { // Replace 5 with your actual condition
+            Schedule trip = Schedule(
+              scheduleData[i]['ScheduleID'].toString(),
+              scheduleData[i]['DepartureTime'],
+              scheduleData[i]['ArrivalTime'],
+              "Dammam",
+              "Riyadh",
+              scheduleData[i]['TrainID'],
+            );
+            schedules.add(trip);
+            SeatsScreen screen = SeatsScreen(departureTime: trip.departureTime,arrivalTime: trip.arrivalTime,);
+            trips.add(Trip(
+              arrivalTime: trip.arrivalTime,
+              departureTime: trip.departureTime,
+              trainNo: trip.scheduleId.toString(),
+              departureCity: trip.departureCity,
+              arrivalCity: trip.arrivalCity,
+              seatScreen: SeatsScreen(departureTime: trip.departureTime,arrivalTime: trip.arrivalTime,),
+            ));
+           seatScreens.add(screen); 
+          }
+
+          // Spread the `trips` list into the `children` of another ListView
+          return Column(
+            children: trips,
+          );
+        } else {
+          return const Text("No data available");
+        }
+      },
+    ),
+  ],
+)
+            ),
 
           // Expanded(
           //   child: GridView(

@@ -9,23 +9,23 @@ class Trip extends StatelessWidget {
     required this.trainNo,
     required this.departureCity,
     required this.arrivalCity,
-    required this.reserveScreen,
+    required this.seatScreen,
   });
  
   final String departureTime;
   final String arrivalTime;
   final String departureCity;
   final String arrivalCity;
-  final int trainNo;
-  final Widget reserveScreen;
+  final String trainNo;
+  final Widget seatScreen;
  
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
+        final reservedSeat = Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => reserveScreen),
+          MaterialPageRoute(builder: (context) => seatScreen),
         );
       },
       child: Container(
@@ -39,21 +39,22 @@ class Trip extends StatelessWidget {
                     trainNo.toString(),
                     style: const TextStyle(fontSize: 30),
                   ),
-                  FutureBuilder<Map<String, dynamic>>(
-                    future: ApiService.getPassengerByID("1"), // Replace "1" with actual ID
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text("Loading...");
-                      } else if (snapshot.hasError) {
-                        return Text("Error: ${snapshot.error}");
-                      } else if (snapshot.hasData) {
-                        final passenger = snapshot.data!;
-                        return Text(passenger['Name'] ?? "Unknown Name");
-                      } else {
-                        return const Text("No data available");
-                      }
-                    },
-                  ),
+                  const Text("Trip ID"),
+                  // FutureBuilder<Map<String, dynamic>>(
+                  //   future: ApiService.getPassengerByID("1"), // Replace "1" with actual ID
+                  //   builder: (context, snapshot) {
+                  //     if (snapshot.connectionState == ConnectionState.waiting) {
+                  //       return const Text("Loading...");
+                  //     } else if (snapshot.hasError) {
+                  //       return Text("Error: ${snapshot.error}");
+                  //     } else if (snapshot.hasData) {
+                  //       final passenger = snapshot.data!;
+                  //       return Text(passenger['Name'] ?? "Unknown Name");
+                  //     } else {
+                  //       return const Text("No data available");
+                  //     }
+                  //   },
+                  // ),
                 ],
               ),
               const SizedBox(width: 30),

@@ -1,177 +1,112 @@
 import "package:flutter/material.dart";
 import 'package:project_frontend/widgets/icon_seat.dart';
+import 'package:project_frontend/models/models.dart';
+import 'package:collection/collection.dart';
+
+  List<List<IconSeat>> icons = [
+    [
+      const IconSeat(isReserved: false,id: 00,),
+      const IconSeat(isReserved: false,id: 01,),
+      const IconSeat(isReserved: false, id: 02,),
+      const IconSeat(isReserved: false,id: 03,),
+      const IconSeat(isReserved: false,id: 04,),
+      const IconSeat(isReserved: false, id: 05,),
+      const IconSeat(isReserved: false,id: 06,),
+      const IconSeat(isReserved: false,id: 07,),
+      const IconSeat(isReserved: false, id: 08,),
+      const IconSeat(isReserved: false, id: 09)
+    ],
+    [
+      const IconSeat(isReserved: false,id: 10,),
+      const IconSeat(isReserved: false,id: 11,),
+      const IconSeat(isReserved: false, id: 12,),
+      const IconSeat(isReserved: false,id: 13,),
+      const IconSeat(isReserved: false,id: 14,),
+      const IconSeat(isReserved: false, id: 15,),
+      const IconSeat(isReserved: false,id: 16,),
+      const IconSeat(isReserved: false,id: 17,),
+      const IconSeat(isReserved: false, id: 18,),
+      const IconSeat(isReserved: false, id: 19)
+    ],
+    [
+      const IconSeat(isReserved: false,id: 20,),
+      const IconSeat(isReserved: false,id: 21,),
+      const IconSeat(isReserved: false, id: 22,),
+      const IconSeat(isReserved: false,id: 23,),
+      const IconSeat(isReserved: false,id: 24,),
+      const IconSeat(isReserved: false, id: 25,),
+      const IconSeat(isReserved: false,id: 26,),
+      const IconSeat(isReserved: false,id: 27,),
+      const IconSeat(isReserved: false, id: 28,),
+      const IconSeat(isReserved: false, id: 29)
+    ],
+    [
+      const IconSeat(isReserved: false,id: 30,),
+      const IconSeat(isReserved: false,id: 31,),
+      const IconSeat(isReserved: false, id: 32,),
+      const IconSeat(isReserved: false,id: 33,),
+      const IconSeat(isReserved: false,id: 34,),
+      const IconSeat(isReserved: false, id: 35,),
+      const IconSeat(isReserved: false,id: 36,),
+      const IconSeat(isReserved: false,id: 37,),
+      const IconSeat(isReserved: false, id: 38,),
+      const IconSeat(isReserved: false, id: 39)
+
+    ],
+  ];
+
+List<List<IconSeat>> copiedIconsList = icons.map((row) => [...row]).toList();
 
 class SeatsScreen extends StatelessWidget {
-  const SeatsScreen({super.key});
-  final List<IconSeat> seatsC1 = const [
-    IconSeat(
-      id: 1,
-    ),
-    IconSeat(
-      id: 2,
-    ),
-    IconSeat(
-      id: 3,
-    ),
-    IconSeat(
-      id: 4,
-    ),
-    IconSeat(
-      id: 5,
-    ),
-    IconSeat(
-      id: 6,
-    ),
-    IconSeat(
-      id: 7,
-    ),
-    IconSeat(
-      id: 8,
-    ),
-    IconSeat(
-      id: 9,
-    ),
-    IconSeat(
-      id: 10,
-    ),
-  ];
-  final List<IconSeat> seatsC2 = const [
-    IconSeat(
-      id: 11,
-    ),
-    IconSeat(
-      id: 12,
-    ),
-    IconSeat(
-      id: 13,
-    ),
-    IconSeat(
-      id: 14,
-    ),
-    IconSeat(
-      id: 15,
-    ),
-    IconSeat(
-      id: 16,
-    ),
-    IconSeat(
-      id: 17,
-    ),
-    IconSeat(
-      id: 18,
-    ),
-    IconSeat(
-      id: 19,
-    ),
-    IconSeat(
-      id: 20,
-    ),
-  ];
-  final List<IconSeat> seatsC3 = const [
-    IconSeat(
-      id: 21,
-    ),
-    IconSeat(
-      id: 22,
-    ),
-    IconSeat(
-      id: 23,
-    ),
-    IconSeat(
-      id: 24,
-    ),
-    IconSeat(
-      id: 25,
-    ),
-    IconSeat(
-      id: 26,
-    ),
-    IconSeat(
-      id: 27,
-    ),
-    IconSeat(
-      id: 28,
-    ),
-    IconSeat(
-      id: 29,
-    ),
-    IconSeat(
-      id: 30,
-    ),
-  ];
-  final List<IconSeat> seatsC4 = const [
-    IconSeat(
-      id: 31,
-    ),
-    IconSeat(
-      id: 32,
-    ),
-    IconSeat(
-      id: 33,
-    ),
-    IconSeat(
-      id: 34,
-    ),
-    IconSeat(
-      id: 35,
-    ),
-    IconSeat(
-      id: 36,
-    ),
-    IconSeat(
-      id: 37,
-    ),
-    IconSeat(
-      id: 38,
-    ),
-    IconSeat(
-      id: 39,
-    ),
-    IconSeat(
-      id: 40,
-    ),
-  ];
+  const SeatsScreen({super.key, required this.departureTime, required this.arrivalTime});
+  final String departureTime;
+  final String arrivalTime;
+  //final Seats seats;
+
   @override
   Widget build(BuildContext context) {
+
+    
+
     return Scaffold(
       appBar: AppBar(),
       body: Center(
         child: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 150,
               width: double.infinity,
               child: Card(
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(100),
                         bottomRight: Radius.circular(100))),
                         child: Column(
                           children: [
-                            SizedBox(height: 40,),
+                            const SizedBox(height: 40,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           ///
-                                          SizedBox(width: 30,),
+                                          const SizedBox(width: 30,),
                                           Column(
                                             children: [
-                                              Text("7:00am", style: TextStyle(fontSize: 20),),
+                                              Text(departureTime, style: const TextStyle(fontSize: 20),),
                                               Text("Dammam")
                                             ],
                                           ),
                                           //const Icon(Icons.arrow_right_alt_sharp),
-                                          SizedBox(width: 15,),
-                                          Column(
+                                          const SizedBox(width: 15,),
+                                          const Column(
                                             children: [
                                               Text(".........",style: TextStyle(fontSize: 20),),
                                               Icon(Icons.arrow_right_alt)
                                             ],
                                           ),
-                                          SizedBox(width: 15,),
+                                          const SizedBox(width: 15,),
                                           Column(
                                             children: [
-                                              Text("9:00am", style: TextStyle(fontSize: 20),),
+                                              Text(arrivalTime, style: const TextStyle(fontSize: 20),),
                                               Text("Riyadh")
                                             ],
                                           )
@@ -186,19 +121,19 @@ class SeatsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Column(
-                  children: [...seatsC1],
+                  children: [...icons[0]],
                 ),
                 Column(
-                  children: [...seatsC2],
+                  children: [...icons[1]],
                 ),
                 const SizedBox(
                   width: 50,
                 ),
                 Column(
-                  children: [...seatsC3],
+                  children: [...icons[2]],
                 ),
                 Column(
-                  children: [...seatsC4],
+                  children: [...icons[3]],
                 )
               ],
             ),
@@ -206,7 +141,12 @@ class SeatsScreen extends StatelessWidget {
               height: 50,
             ),
             ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                    bool isChanged = !const DeepCollectionEquality().equals(icons, copiedIconsList); // <-- Reversed logic
+                        if (isChanged) {
+                            Navigator.pop(context); // <-- Fixed to pop only if lists are not equal
+                        }
+                },
                 style: const ButtonStyle(
                   shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
                     foregroundColor: WidgetStatePropertyAll(Colors.white),
@@ -221,3 +161,144 @@ class SeatsScreen extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // final List<List<IconSeat>> seatsList = const [
+  // [
+  //    IconSeat(id: 1,),
+  //   IconSeat(
+  //     id: 2,
+  //   ),
+  //   IconSeat(
+  //     id: 3,
+  //   ),
+  //   IconSeat(
+  //     id: 4,
+  //   ),
+  //   IconSeat(
+  //     id: 5,
+  //   ),
+  //   IconSeat(
+  //     id: 6,
+  //   ),
+  //   IconSeat(
+  //     id: 7,
+  //   ),
+  //   IconSeat(
+  //     id: 8,
+  //   ),
+  //   IconSeat(
+  //     id: 9,
+  //   ),
+  //   IconSeat(
+  //     id: 10,
+  //   ),
+  // ],
+  // [
+  //   IconSeat(
+  //     id: 1,
+  //   ),
+  //   IconSeat(
+  //     id: 2,
+  //   ),
+  //   IconSeat(
+  //     id: 3,
+  //   ),
+  //   IconSeat(
+  //     id: 4,
+  //   ),
+  //   IconSeat(
+  //     id: 5,
+  //   ),
+  //   IconSeat(
+  //     id: 6,
+  //   ),
+  //   IconSeat(
+  //     id: 7,
+  //   ),
+  //   IconSeat(
+  //     id: 8,
+  //   ),
+  //   IconSeat(
+  //     id: 9,
+  //   ),
+  //   IconSeat(
+  //     id: 10,
+  //   ),
+  // ],
+  // [
+  //   IconSeat(
+  //     id: 1,
+  //   ),
+  //   IconSeat(
+  //     id: 2,
+  //   ),
+  //   IconSeat(
+  //     id: 3,
+  //   ),
+  //   IconSeat(
+  //     id: 4,
+  //   ),
+  //   IconSeat(
+  //     id: 5,
+  //   ),
+  //   IconSeat(
+  //     id: 6,
+  //   ),
+  //   IconSeat(
+  //     id: 7,
+  //   ),
+  //   IconSeat(
+  //     id: 8,
+  //   ),
+  //   IconSeat(
+  //     id: 9,
+  //   ),
+  //   IconSeat(
+  //     id: 10,
+  //   ),
+  // ],
+  //   [
+  //         IconSeat(
+  //     id: 1,
+  //   ),
+  //   IconSeat(
+  //     id: 2,
+  //   ),
+  //   IconSeat(
+  //     id: 3,
+  //   ),
+  //   IconSeat(
+  //     id: 4,
+  //   ),
+  //   IconSeat(
+  //     id: 5,
+  //   ),
+  //   IconSeat(
+  //     id: 6,
+  //   ),
+  //   IconSeat(
+  //     id: 7,
+  //   ),
+  //   IconSeat(
+  //     id: 8,
+  //   ),
+  //   IconSeat(
+  //     id: 9,
+  //   ),
+  //   IconSeat(
+  //     id: 10,
+  //   ),
+  //   ],
+  // ];

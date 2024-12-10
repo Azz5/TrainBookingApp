@@ -3,6 +3,7 @@ import 'package:project_frontend/widgets/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:project_frontend/providers/login_provider.dart';
+import 'package:project_frontend/dataHandler/api_service.dart';
 
 class RegistrationScreen extends StatelessWidget{
   const RegistrationScreen({super.key});
@@ -44,6 +45,7 @@ class RegistrationScreen extends StatelessWidget{
                   String confirmedPassword = context.read<LoginProvider>().confirmedPassword;
                   if (password == confirmedPassword){
                     register(email, password);
+                    ApiService.createPassenger({"PassengerID" : 1,"Name" : "aziz", "Email" : email,"PhoneNumber" : "929293293","LoyaltyPoints":100});
                   }else{
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Error: Unmatched password")));
                   }
