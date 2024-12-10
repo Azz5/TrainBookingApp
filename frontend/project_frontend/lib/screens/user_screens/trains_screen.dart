@@ -57,7 +57,7 @@ class _TrainsScreenState extends State<TrainsScreen>{
   }
 
   List<SeatsScreen> seatScreens = [];
-  List<List<IconSeat>> icons = [];
+  //List<List<IconSeat>> icons = [];
   
   @override
   Widget build(BuildContext context) {
@@ -180,14 +180,27 @@ class _TrainsScreenState extends State<TrainsScreen>{
               scheduleData[i]['TrainID'],
             );
             schedules.add(trip);
-            SeatsScreen screen = SeatsScreen(departureTime: trip.departureTime,arrivalTime: trip.arrivalTime,);
+            SeatsScreen screen = SeatsScreen(departureTime: trip.departureTime,arrivalTime: trip.arrivalTime,scheduleID: int.parse(trip.scheduleId),);
+            List<List<IconSeat>> copiedIconsList = icons.map((row) => [...row]).toList();
+            seatsMapbyID[int.parse(trip.scheduleId)] = copiedIconsList;
+            String id = trip.scheduleId;
+            for (int k = 0; k < 4; k++){
+              for (int j = 0; j < 10; j++){
+                String a = k.toString();
+                String b = j.toString();
+                String localID = "";
+                localID = id + a + b;
+                seatsMapbyID[int.parse(trip.scheduleId)]?[k][j] = IconSeat(isReserved: false, id: int.parse(localID));
+              }
+            }
+            
             trips.add(Trip(
               arrivalTime: trip.arrivalTime,
               departureTime: trip.departureTime,
-              trainNo: trip.scheduleId.toString(),
+              trainNo: trip.scheduleId,
               departureCity: trip.departureCity,
               arrivalCity: trip.arrivalCity,
-              seatScreen: SeatsScreen(departureTime: trip.departureTime,arrivalTime: trip.arrivalTime,),
+              seatScreen: screen,
             ));
            seatScreens.add(screen); 
           }
