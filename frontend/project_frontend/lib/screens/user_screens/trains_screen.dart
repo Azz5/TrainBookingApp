@@ -160,7 +160,7 @@ class _TrainsScreenState extends State<TrainsScreen>{
             child: ListView(
   children: [
     FutureBuilder<List<dynamic>>(
-      future: ApiService.getAllSchedules(), // Replace "1" with actual ID
+      future: ApiService.getAllSchedules(), 
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading...");
@@ -170,7 +170,7 @@ class _TrainsScreenState extends State<TrainsScreen>{
           final scheduleData = snapshot.data!;
           List<Trip> trips = [];
           
-          for (int i = 0; i < scheduleData.length; i++) { // Replace 5 with your actual condition
+          for (int i = 0; i < scheduleData.length; i++) { 
             Schedule trip = Schedule(
               scheduleData[i]['ScheduleID'].toString(),
               scheduleData[i]['DepartureTime'],
