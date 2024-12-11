@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_frontend/dataHandler/api_service.dart';
  
 class Trip extends StatelessWidget {
   const Trip({

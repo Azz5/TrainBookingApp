@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_frontend/screens/user_screens/seats_screen.dart';
 import 'package:project_frontend/models/models.dart';
 
 class IconSeat extends StatefulWidget{

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend/screens/user_screens/trains_screen.dart';
 import 'package:project_frontend/screens/user_screens/reservation_screen.dart';
+import 'package:project_frontend/screens/user_screens/tickets_screen.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
@@ -36,7 +37,7 @@ class _UserScreenState extends State<UserScreen> {
                 : "Tickets"),
         automaticallyImplyLeading: false,
       ),
-      body: index == 0? const TrainsScreen() : index == 1? const ReservationScreen() : const Text(""),
+      body: index == 0? const TrainsScreen() : index == 1? const ReservationScreen() : TicketsScreen(),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: index,
           onTap: (value) => onChangeIndex(value),

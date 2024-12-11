@@ -95,7 +95,7 @@ class SeatsScreen extends StatelessWidget {
                                           Column(
                                             children: [
                                               Text(departureTime, style: const TextStyle(fontSize: 20),),
-                                              Text("Dammam")
+                                              const Text("Dammam")
                                             ],
                                           ),
                                           //const Icon(Icons.arrow_right_alt_sharp),
@@ -110,7 +110,7 @@ class SeatsScreen extends StatelessWidget {
                                           Column(
                                             children: [
                                               Text(arrivalTime, style: const TextStyle(fontSize: 20),),
-                                              Text("Riyadh")
+                                              const Text("Riyadh")
                                             ],
                                           )
                                         ],

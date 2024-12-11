@@ -254,30 +254,11 @@ class ApiService {
       throw Exception('Failed to create reservation');
     }
   }
-  /*
-  Map<String, dynamic> reservationData = {
-    "trainID": "KTX200",
-    "passengerID": 2,
-    "date": "2024-12-02",
-    "seatNumber": 10,
-    "paymentStatus": "Paid",
-    "status": "Confirmed"
-  };
-
-await updateReservation('1', {
-  "trainID": "KTX200",
-  "passengerID": 2,
-  "date": "2024-12-02",
-  "seatNumber": 10,
-  "paymentStatus": "Paid",
-  "status": "Confirmed"
-});
-*/
 
   static Future<void> updateReservation(
-      int id /*Reservation ID */, Map<String, dynamic> reservationData)/* const { trainID, passengerID, date, seatNumber, paymentStatus, status } = req.body;*/ async {
+      int id, Map<String, dynamic> reservationData) async {
     final response = await http.put(
-      Uri.parse('$baseUrl/reservation/${int.parse(id)}'),
+      Uri.parse('$baseUrl/reservation/$id'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(reservationData),
     );

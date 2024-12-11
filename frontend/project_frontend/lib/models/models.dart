@@ -1,4 +1,3 @@
-import 'package:project_frontend/widgets/trip.dart';
 import 'package:project_frontend/widgets/icon_seat.dart';
 
 class Schedule{

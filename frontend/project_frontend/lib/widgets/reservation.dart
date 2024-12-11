@@ -19,6 +19,8 @@ class ReservationState extends State<Reservation>{
   bool isPaid = false;
   @override
   Widget build(BuildContext context) {
+    int id = widget.data["ReservationID"];
+    widget.data.remove("ReservationID");
     String payment = widget.data["PaymentStatus"];
     String seat = widget.data["SeatNumber"];
     String date = widget.data["Date"];
@@ -69,9 +71,9 @@ class ReservationState extends State<Reservation>{
 
     return InkWell(
       onTap: (){
-       // if (!isPaid){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(id: widget.data["ReservationID"],reservationData: widget.data,),));
-        //}
+       if (payment == "Unpaid"){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(id: id,reservationData: widget.data,),));
+       }
       },
       child: Container(
         padding: const EdgeInsets.all(12),
