@@ -58,14 +58,15 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const { trainID, passengerID, date, seatNumber, paymentStatus, status } = req.body;
+        console.log(req.body)
+        const { TrainID , PassengerID, Date, SeatNumber, PaymentStatus, Status } = req.body;
 
         // Validate input
-        if (!id || !trainID || !passengerID || !date || !seatNumber || !paymentStatus || !status) {
+        if (!id || !TrainID || !PassengerID || !Date || !SeatNumber || !PaymentStatus || !Status) {
             return res.status(400).json({ error: "All fields are required to update a reservation" });
         }
 
-        const updatedRows = await updateReservation(id, trainID, passengerID, date, seatNumber, paymentStatus, status);
+        const updatedRows = await updateReservation(id, TrainID, PassengerID, Date, SeatNumber, PaymentStatus, Status);
         if (updatedRows === 0) {
             return res.status(404).json({ error: "Reservation not found or no changes made" });
         }

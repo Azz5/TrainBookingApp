@@ -3,6 +3,9 @@ import pool from "../config/db.js"
 // Get all reservations
 export const getAllReservations = async () => {
     const [rows] = await pool.query('SELECT * FROM Reservation');
+    rows.map((e) => {
+        e.Date
+    })
     return rows;
 };
 
