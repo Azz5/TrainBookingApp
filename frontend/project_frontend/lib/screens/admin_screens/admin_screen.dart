@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_frontend/screens/admin_screens/modifications_screen.dart';
+import 'package:project_frontend/screens/admin_screens/stations_screen.dart';
 
 
 class AdminScreen extends StatefulWidget{
@@ -19,30 +21,21 @@ class AdminScreenState extends State<AdminScreen>{
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(index == 0 ? "Trains" : index == 1 ? "Seats" : "Payment"),
+        title: Text(index == 0 ? "Reservations" : index == 1 ? "Stations" : index == 2? "Staff" : "Waitlist"),
         ),
       body: Center(
-        child: GridView(
-  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 2,
-    crossAxisSpacing: 30,
-    mainAxisSpacing: 30, // Optional: To control the vertical spacing
-  ),
-  children: [
-    Container(
-      padding: const EdgeInsets.all(8),
-      child: const Text(""),
-    )
-  ],
-),
+        child: index == 1? const StationsScreen() : const ModificationsScreen(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,
+        backgroundColor: const Color.fromARGB(217, 255, 255, 255),
+        type: BottomNavigationBarType.fixed,
         onTap: (value) => onChangeIndex(value),
         items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.train), label: "Tickets"),
-        BottomNavigationBarItem(icon: Icon(Icons.assignment), label: "Assign Staff"),
-        BottomNavigationBarItem(icon: Icon(Icons.list),label:  "Waitlist"),
+        BottomNavigationBarItem(icon: Icon(Icons.train), label: "Reservations"),
+        BottomNavigationBarItem(icon: Icon(Icons.horizontal_distribute_rounded), label: "Stations"),
+        BottomNavigationBarItem(icon: Icon(Icons.people), label: "Staff"),
+        BottomNavigationBarItem(icon: Icon(Icons.hourglass_top_outlined),label:  "Waitlist"),
       ]),
     );
   }

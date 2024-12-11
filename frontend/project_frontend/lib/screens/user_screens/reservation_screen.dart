@@ -21,12 +21,6 @@ class ReservationScreen  extends StatelessWidget{
         } else if (snapshot.hasData) {
           final scheduleData = snapshot.data!;
           for (int i = 0; i < scheduleData.length; i++){
-            String payment = scheduleData[i]["PaymentStatus"];
-            String date = scheduleData[i]["Date"];
-            String seat = scheduleData[i]["SeatNumber"];
-            // String month = date.substring(5,7);
-            String day = date.substring(8,10);
-
             reservations.add(Reservation(data: scheduleData[i],));
           }
           return Column(

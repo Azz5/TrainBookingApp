@@ -254,7 +254,7 @@ class ApiService {
       throw Exception('Failed to create reservation');
     }
   }
-
+// not working
   static Future<void> updateReservation(
       int id, Map<String, dynamic> reservationData) async {
     final response = await http.put(
@@ -262,12 +262,11 @@ class ApiService {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(reservationData),
     );
-    // error
     if (response.statusCode != 200) {
       throw Exception('Failed to update reservation');
     }
   }
-
+// not working
   static Future<void> deleteReservation(String id) async {
     final response = await http.delete(Uri.parse('$baseUrl/reservation/$id'));
     if (response.statusCode != 200) {
