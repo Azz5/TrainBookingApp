@@ -1,3 +1,4 @@
+use trainapp;
 -- Passenger Table
 CREATE TABLE Passenger (
     PassengerID INT AUTO_INCREMENT PRIMARY KEY,

@@ -1,10 +1,30 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:project_frontend/widgets/card_textfield.dart';
 import 'package:project_frontend/widgets/cvv_textfield.dart';
+import 'package:project_frontend/dataHandler/api_service.dart';
 
 
-class PaymentScreen  extends StatelessWidget{
-  const PaymentScreen({super.key});
+class PaymentScreen  extends StatefulWidget{
+  const PaymentScreen({super.key, required this.id, required this.reservationData});
+  final int id;
+  final Map<String,dynamic> reservationData;
+
+  @override
+  State<StatefulWidget> createState() {
+    return PaymentScreenState();
+  }
+
+}
+
+
+class PaymentScreenState extends State<PaymentScreen>{
+  bool isCCfull = false;
+  bool isCVVfull = false;
+
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,11 +36,32 @@ class PaymentScreen  extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            //CreditCardTextField(),
+            CreditCardTextField(
+              onChanged: (input){
+                if (input.length == 16){
+                  isCCfull = true;
+                }
+              },
+            ),
             //const SizedBox(height: 200,),
-            CVVTextField(),
-            //const SizedBox(height: 300,),
-            ElevatedButton(onPressed: (){}, child: const Text("Confirm Payment"))
+            CVVTextField(
+              onChanged: (input) {
+                if (input.length == 3){
+                  isCVVfull = true;
+                }
+              },
+            ),
+            const SizedBox(height: 300,),
+            ElevatedButton(
+              onPressed: () async{
+                if (isCCfull && isCVVfull){
+                 await ApiService.updateReservation(widget.id.toString(), widget.reservationData);
+                  Navigator.pop(context);
+                }
+              },
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 69, 39, 176)),foregroundColor: WidgetStatePropertyAll(Colors.white)), 
+              child: const Text("Confirm Payment"))
           ],
         ),
       ),

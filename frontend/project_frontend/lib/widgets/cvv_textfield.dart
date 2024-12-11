@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CVVTextField extends StatefulWidget {
+  const CVVTextField({super.key, required this.onChanged});
+  final ValueChanged<String>? onChanged;
   @override
   CVVTextFieldState createState() => CVVTextFieldState();
 }
@@ -43,12 +45,16 @@ class CVVTextFieldState extends State<CVVTextField> {
           prefixIcon: const Icon(Icons.credit_card),
         ),
         onChanged: (value) {
-          final formatted = _formatCreditCardNumber(value);
-          // Update the text with the formatted value
-          _controller.value = TextEditingValue(
-            text: formatted,
-            selection: TextSelection.collapsed(offset: formatted.length),
-          );
+                  final formatted = _formatCreditCardNumber(value);
+
+        // Update the text with the formatted value
+        _controller.value = TextEditingValue(
+          text: formatted,
+          selection: TextSelection.collapsed(offset: formatted.length),
+        );
+
+        // Notify parent widget of the current input
+        widget.onChanged!(formatted); // <--- Notify parent here
         },
       ),
     );

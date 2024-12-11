@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CreditCardTextField extends StatefulWidget {
+  const CreditCardTextField({super.key, required this.onChanged});
+  final ValueChanged<String>? onChanged;
   @override
   CreditCardTextFieldState createState() => CreditCardTextFieldState();
 }
@@ -32,7 +34,7 @@ class CreditCardTextFieldState extends State<CreditCardTextField> {
         keyboardType: TextInputType.number,
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly, // Allow only numbers
-          LengthLimitingTextInputFormatter(19), // Maximum length (16 digits + 3 spaces)
+          LengthLimitingTextInputFormatter(16), // Maximum length (16 digits + 3 spaces)
         ],
         decoration: InputDecoration(
           labelText: 'Credit Card Number',
@@ -43,12 +45,17 @@ class CreditCardTextFieldState extends State<CreditCardTextField> {
           prefixIcon: const Icon(Icons.credit_card),
         ),
         onChanged: (value) {
-          final formatted = _formatCreditCardNumber(value);
-          // Update the text with the formatted value
-          _controller.value = TextEditingValue(
-            text: formatted,
-            selection: TextSelection.collapsed(offset: formatted.length),
-          );
+        final formatted = _formatCreditCardNumber(value);
+
+        // Update the text with the formatted value
+        _controller.value = TextEditingValue(
+          text: formatted,
+          selection: TextSelection.collapsed(offset: formatted.length),
+        );
+
+        // Notify parent widget of the current input
+        widget.onChanged!(formatted); // <--- Notify parent here
+          
         },
       ),
     );

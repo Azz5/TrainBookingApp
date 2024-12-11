@@ -258,10 +258,11 @@ class ApiService {
   static Future<void> updateReservation(
       String id, Map<String, dynamic> reservationData) async {
     final response = await http.put(
-      Uri.parse('$baseUrl/reservation/$id'),
+      Uri.parse('$baseUrl/reservation/${int.parse(id)}'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(reservationData),
     );
+    // error
     if (response.statusCode != 200) {
       throw Exception('Failed to update reservation');
     }
