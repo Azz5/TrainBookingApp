@@ -46,7 +46,7 @@ CREATE TABLE Reservation (
     TrainID VARCHAR(10) NOT NULL,
     PassengerID INT NOT NULL,
     Date DATE NOT NULL,
-    SeatNumber VARCHAR(10) UNIQUE NOT NULL,
+    SeatNumber INT UNIQUE NOT NULL,
     PaymentStatus ENUM('Paid', 'Unpaid') NOT NULL,
     Status ENUM('Confirmed', 'Temporary', 'Cancelled') DEFAULT 'Temporary',
     FOREIGN KEY (TrainID) REFERENCES Train(TrainID),
@@ -125,9 +125,9 @@ VALUES
 -- Reservation Table
 INSERT INTO Reservation (TrainID, PassengerID, Date, SeatNumber, PaymentStatus, Status)
 VALUES
-('HHR100', 1, '2024-12-01', 'A1', 'Paid', 'Confirmed'),
-('HHR100', 2, '2024-12-01', 'A2', 'Unpaid', 'Temporary'),
-('KTX200', 3, '2024-12-02', 'B1', 'Paid', 'Confirmed');
+('HHR100', 1, '2024-12-01', 1, 'Paid', 'Confirmed'),
+('HHR100', 2, '2024-12-01', 5, 'Unpaid', 'Temporary'),
+('KTX200', 3, '2024-12-02', 8, 'Paid', 'Confirmed');
 
 -- Payment Table
 INSERT INTO Payment (ReservationID, Amount, VAT, PaymentDate)

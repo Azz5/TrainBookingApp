@@ -256,7 +256,7 @@ class ApiService {
   }
 
   static Future<void> updateReservation(
-      String id, Map<String, dynamic> reservationData) async {
+      int id /*Reservation ID */, Map<String, dynamic> reservationData)/* const { trainID, passengerID, date, seatNumber, paymentStatus, status } = req.body;*/ async {
     final response = await http.put(
       Uri.parse('$baseUrl/reservation/${int.parse(id)}'),
       headers: {'Content-Type': 'application/json'},
