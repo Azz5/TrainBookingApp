@@ -15,6 +15,47 @@ export const getTrainByID = async (trainID) => {
     return rows[0]; // Return the first row (or undefined if not found)
 };
 
+export const getUnAssignedDriverTrain = async () => {
+    try {
+        const [rows] = await pool.query(
+            `
+            SELECT *
+            FROM Train
+            WHERE TrainID NOT IN (
+                SELECT DISTINCT AssignedTrainID
+                FROM Staff
+                WHERE Role = 'Driver' AND AssignedTrainID IS NOT NULL
+            );
+            `
+        );
+        return rows; // Returns the list of unassigned drivers and train details
+    } catch (error) {
+        console.error("Error fetching unassigned drivers and trains:", error);
+        throw new Error("Failed to fetch unassigned drivers and trains.");
+    }
+};
+
+
+export const getUnAssignedEngineerTrain = async () => {
+    try {
+        const [rows] = await pool.query(
+            `
+            SELECT *
+            FROM Train
+            WHERE TrainID NOT IN (
+                SELECT DISTINCT AssignedTrainID
+                FROM Staff
+                WHERE Role = 'Driver' AND AssignedTrainID IS NOT NULL
+            );
+            `
+        );
+        return rows; // Returns the list of unassigned drivers and train details
+    } catch (error) {
+        console.error("Error fetching unassigned drivers and trains:", error);
+        throw new Error("Failed to fetch unassigned drivers and trains.");
+    }
+};
+
 // Create a new train
 export const createTrain = async (trainID, trainNameEN, trainNameAR, originStationID, destinationStationID, scheduleDate) => {
     const [result] = await pool.query(

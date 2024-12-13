@@ -4,10 +4,45 @@ import {
     getTrainByID,
     createTrain,
     updateTrain,
-    deleteTrain
+    deleteTrain, getUnAssignedDriverTrain,  getUnAssignedEngineerTrain
 } from "../models/trainModel.js";
 
 const router = express.Router();
+
+router.get("/MissingDriver", async (req, res) => {
+    try {
+        const trains = await getUnAssignedDriverTrain();
+
+        // Check if the result is empty
+        if (!trains || trains.length === 0) {
+            return res.status(404).json({ error: "No trains with missing drivers found." });
+        }
+
+        // Respond with the list of trains
+        res.status(200).json(trains);
+    } catch (e) {
+        console.error("Error fetching trains with missing drivers:", e);
+        res.status(500).json({ error: "Failed to fetch trains with missing drivers." });
+    }
+});
+
+router.get("/MissingEngineer", async (req, res) => {
+    try {
+        const trains = await getUnAssignedEngineerTrain();
+
+        // Check if the result is empty
+        if (!trains || trains.length === 0) {
+            return res.status(404).json({ error: "No trains with missing Engineer found." });
+        }
+
+        // Respond with the list of trains
+        res.status(200).json(trains);
+    } catch (e) {
+        console.error("Error fetching trains with missing drivers:", e);
+        res.status(500).json({ error: "Failed to fetch trains with missing drivers." });
+    }
+});
+
 
 // Get all trains
 router.get("/", async (req, res) => {
@@ -35,6 +70,9 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch train by ID" });
     }
 });
+
+
+
 
 // Create a new train
 router.post("/", async (req, res) => {
