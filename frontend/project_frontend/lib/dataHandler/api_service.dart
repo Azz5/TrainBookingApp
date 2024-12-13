@@ -3,7 +3,11 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   static const String baseUrl = 'http://127.0.0.1:3333';
-
+  static String _formatDate(DateTime date) {
+    return '${date.year.toString().padLeft(4, '0')}-'
+        '${date.month.toString().padLeft(2, '0')}-'
+        '${date.day.toString().padLeft(2, '0')}';
+  }
   // ----------- PASSENGERS -----------
   // Get all passengers
   static Future<List<dynamic>> getAllPassengers() async {
@@ -453,16 +457,50 @@ class ApiService {
   }
 
   // Assign a train to a staff member
-  static Future<void> assignTrainToStaff(String staffID, String trainID) async {
-    final response = await http.put(
-      Uri.parse('$baseUrl/staff/$staffID/assign-train'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'trainID': trainID}),
-    );
-    if (response.statusCode != 200) {
-      throw Exception('Failed to assign train to staff member');
+  static Future<void> assignTrainToStaff(String staffID, String trainID, String scheduleDate) async {
+    // Input Validation
+    if (staffID.isEmpty) {
+      throw Exception('Staff ID must not be empty.');
+    }
+
+
+    // Prepare the request body
+    Map<String, dynamic> requestBody = {};
+    if (trainID != null && scheduleDate != null) {
+      requestBody['trainID'] = trainID;
+      requestBody['scheduleDate'] = scheduleDate;
+    } else {
+      requestBody['trainID'] = null;
+      requestBody['scheduleDate'] = null;
+    }
+
+    try {
+      // Make the PUT request to assign/unassign the train
+      final response = await http.put(
+        Uri.parse('$baseUrl/staff/$staffID/assign-train'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(requestBody),
+      );
+
+      // Handle different response statuses
+      if (response.statusCode == 200) {
+        // Successfully assigned/unassigned
+        print('Train assignment updated successfully.');
+      } else if (response.statusCode == 400 || response.statusCode == 404) {
+        // Client-side errors
+        final responseBody = jsonDecode(response.body);
+        final errorMessage = responseBody['error'] ?? 'Failed to assign/unassign train to staff member.';
+        throw Exception(errorMessage);
+      } else {
+        // Other server-side errors
+        throw Exception('Failed to assign/unassign train to staff member. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network errors or JSON parsing errors
+      throw Exception('Error assigning/unassigning train to staff member: ${e.toString()}');
     }
   }
+
 
   // Remove assigned train from a staff member
   static Future<void> removeAssignedTrain(String staffID) async {

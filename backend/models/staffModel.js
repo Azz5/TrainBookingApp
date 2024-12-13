@@ -43,6 +43,7 @@ export const deleteStaff = async (staffID) => {
 
 // Assign a train to a staff member
 export const assignTrainToStaff = async (staffID,scheduleDate ,trainID) => {
+    console.log(staffID + " " + scheduleDate + " " + trainID)
     const [result] = await pool.query(
         `UPDATE Staff 
          SET AssignedTrainID = ?, ScheduleDate = ?

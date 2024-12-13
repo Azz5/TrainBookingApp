@@ -62,7 +62,7 @@ class TrainAdminState extends State<TrainAdmin>{
                   ),
                 TextButton(onPressed: ()async{
 
-                  await ApiService.assignTrainToStaff(widget.staffID.toString(), widget.trainID);
+                  await ApiService.assignTrainToStaff(widget.staffID.toString(), widget.trainID, chosenDate);
                 }, child: const Text("Assign"))
               ],
             ),
