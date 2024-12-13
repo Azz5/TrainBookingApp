@@ -11,7 +11,7 @@ class StaffCard extends StatelessWidget{
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        assignedTrainID == "" ? Navigator.push(context, MaterialPageRoute(builder: (context) => TrainsAdminScreen(),)): null;
+        assignedTrainID == "" ? Navigator.push(context, MaterialPageRoute(builder: (context) => TrainsAdminScreen(role: role,staffID: staffID,staffName: name,),)): null;
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:project_frontend/dataHandler/api_service.dart';
 
 class TrainAdmin extends StatefulWidget{
-  const TrainAdmin({super.key, required this.trainID, required this.nameEN, required this.nameAR, required this.staffID});
+  const TrainAdmin({super.key, required this.trainID, required this.nameEN, required this.nameAR, required this.role,required this.staffName, required this.staffID});
   final String trainID;
   final String nameEN;
   final String nameAR;
   final int staffID;
+  final String staffName;
+  final String role;
   @override
   State<StatefulWidget> createState() {
     return TrainAdminState();
@@ -38,30 +41,31 @@ class TrainAdminState extends State<TrainAdmin>{
      height: 300,
      // width: 100,
       child: Card(
-        child: Column(
+        child: Wrap(
           children: [
             const SizedBox(height: 15,),
-            const Text("ID"),
+            Text(widget.trainID),
             const Icon(Icons.train_rounded,color: Color.fromARGB(255, 34, 9, 73),size: 99,),
-            const Row(
+            Wrap(
               children: [
-                Text("EN Name"),
-                Spacer(),
-                Text("AR Name"),
+                Text(widget.nameEN),
+                const Spacer(),
+                Text(widget.nameAR),
               ],
             ),
-            Row(
+            Wrap(
               children: [
                 IconButton(onPressed: (){selectDate();},style: const ButtonStyle(iconColor: WidgetStatePropertyAll(Color.fromARGB(255, 34, 9, 73))) ,icon: const Icon(Icons.date_range)),
                 SizedBox(
                   width: 83,
                   child: chosenDate == "" ? const Text("") : Text(chosenDate),
                   ),
-                TextButton(onPressed: (){selectDate();}, child: const Text("Assign"))
+                TextButton(onPressed: ()async{
+
+                  await ApiService.assignTrainToStaff(widget.staffID.toString(), widget.trainID);
+                }, child: const Text("Assign"))
               ],
             ),
-          
-
           ],
         ),
       ),

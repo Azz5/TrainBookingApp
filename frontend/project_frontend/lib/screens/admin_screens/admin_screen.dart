@@ -24,7 +24,37 @@ class AdminScreenState extends State<AdminScreen>{
     return Scaffold(
       appBar: AppBar(
         title: Text(index == 0 ? "Reservations" : index == 1 ? "Stations" : index == 2? "Staff" : "Waitlist"),
+        
         ),
+        drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                // Handle logout logic
+                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: index == 0? const ModificationsScreen() : index == 1? const StationsScreen() : const StaffScreen(),
       ),

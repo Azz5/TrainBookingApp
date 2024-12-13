@@ -36,6 +36,7 @@ CREATE TABLE Schedule (
     StopSequence INT NOT NULL,
     ArrivalTime TIME,
     DepartureTime TIME,
+    ScheduleDate DATE NOT NULL,
     FOREIGN KEY (TrainID) REFERENCES Train(TrainID),
     FOREIGN KEY (StationID) REFERENCES Station(StationID)
 );
@@ -69,7 +70,7 @@ CREATE TABLE Staff (
     Name VARCHAR(100) NOT NULL,
     Role ENUM('Driver', 'Engineer', 'Admin') NOT NULL,
     AssignedTrainID VARCHAR(10),
-    EmplymentDate DATE NOT NULL,
+    ScheduleDate DATE NOT NULL,
     FOREIGN KEY (AssignedTrainID) REFERENCES Train(TrainID)
 );
 
