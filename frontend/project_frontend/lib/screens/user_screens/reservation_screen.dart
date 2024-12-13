@@ -9,10 +9,10 @@ class ReservationScreen  extends StatelessWidget{
   Widget build(BuildContext context) {
     List<Reservation> reservations = []; //const [Reservation(),Reservation(),Reservation(),];
     return Center(
-      child: Column(
+      child: ListView(
         children: [
           FutureBuilder<List<dynamic>>(
-      future: ApiService.getAllReservations(), 
+      future: ApiService.getAllReservations(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading...");
