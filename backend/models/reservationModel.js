@@ -4,7 +4,10 @@ import pool from "../config/db.js"
 export const getAllReservations = async () => {
     const [rows] = await pool.query('SELECT * FROM Reservation');
     rows.map((e) => {
-        e.Date
+        const formattedDate = e.Date.toISOString().split('T')[0];
+        console.log(formattedDate);
+        e.Date = formattedDate;
+        return e;
     })
     return rows;
 };
