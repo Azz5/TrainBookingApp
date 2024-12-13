@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend/screens/admin_screens/modifications_screen.dart';
 import 'package:project_frontend/screens/admin_screens/stations_screen.dart';
+import 'package:project_frontend/widgets/admin_widgets/staff_card.dart';
+import 'package:project_frontend/screens/admin_screens/staff_screen.dart';
 
 
 class AdminScreen extends StatefulWidget{
@@ -24,7 +26,7 @@ class AdminScreenState extends State<AdminScreen>{
         title: Text(index == 0 ? "Reservations" : index == 1 ? "Stations" : index == 2? "Staff" : "Waitlist"),
         ),
       body: Center(
-        child: index == 1? const StationsScreen() : const ModificationsScreen(),
+        child: index == 0? const ModificationsScreen() : index == 1? const StationsScreen() : const StaffScreen(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,

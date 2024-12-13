@@ -58,7 +58,7 @@ class PaymentScreenState extends State<PaymentScreen>{
                   widget.reservationData["PaymentStatus"] = "Paid";
                   print(widget.id);
                   print(widget.reservationData);
-                 await ApiService.updateReservation(widget.id, widget.reservationData);
+                 await ApiService.updateReservation(widget.id.toString(), widget.reservationData);
                   Navigator.pop(context);
                 }
               },
