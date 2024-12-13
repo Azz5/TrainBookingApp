@@ -308,10 +308,12 @@ class ApiService {
   }
 
   // Delete a reservation
-  static Future<void> deleteReservation(String id) async {
+  static Future<bool> deleteReservation(String id) async {
     final response = await http.delete(Uri.parse('$baseUrl/reservation/$id'));
-    if (response.statusCode != 200) {
-      throw Exception('Failed to delete reservation');
+    if (response.statusCode == 200 || response.statusCode == 204) {
+      return true; // Deletion successful
+    } else {
+      return false; // Deletion failed
     }
   }
 
