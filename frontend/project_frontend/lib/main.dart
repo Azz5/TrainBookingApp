@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LoginProvider(),)
       ],
-      child: const MaterialApp(
-        home: LoginScreen()
+      child: MaterialApp(
+        routes: {'/login': (context) => const LoginScreen()},
+        home: const LoginScreen()
       ),
     );
   }

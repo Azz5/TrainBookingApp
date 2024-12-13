@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_frontend/screens/user_screens/trains_screen.dart';
 import 'package:project_frontend/screens/user_screens/reservation_screen.dart';
@@ -12,10 +13,21 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+    void logOut(BuildContext context) async {
+  try {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacementNamed(context, '/login');
+    print("fasdfdsfsdafdfdsafads");
+  } catch (e) {
+    print('Error during logout: $e');
+  }
+}
   int index = 0;
   void onChangeIndex(int value) => setState(() {
         index = value;
       });
+
+      
 
 
 
@@ -35,7 +47,35 @@ class _UserScreenState extends State<UserScreen> {
             : index == 1
                 ? "Reservations"
                 : "Tickets"),
-        automaticallyImplyLeading: false,
+       // automaticallyImplyLeading: false,
+      ),
+      drawer: Drawer(
+        shadowColor: Colors.purple,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+                logOut(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: index == 0? const TrainsScreen() : index == 1? const ReservationScreen() : TicketsScreen(),
       bottomNavigationBar: BottomNavigationBar(

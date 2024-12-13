@@ -3,6 +3,10 @@ import 'package:project_frontend/screens/admin_screens/modifications_screen.dart
 import 'package:project_frontend/screens/admin_screens/stations_screen.dart';
 import 'package:project_frontend/widgets/admin_widgets/staff_card.dart';
 import 'package:project_frontend/screens/admin_screens/staff_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project_frontend/screens/registration_screens/login_screen.dart';
+
+
 
 
 class AdminScreen extends StatefulWidget{
@@ -14,8 +18,20 @@ class AdminScreen extends StatefulWidget{
 }
 
 class AdminScreenState extends State<AdminScreen>{
+
+  
   int index = 0;
   void onChangeIndex(int value)=> setState(() {index = value;});
+
+  void logOut(BuildContext context) async {
+  try {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacementNamed(context, '/login');
+    print("fasdfdsfsdafdfdsafads");
+  } catch (e) {
+    print('Error during logout: $e');
+  }
+}
   @override
   Widget build(BuildContext context) {
 
@@ -27,6 +43,7 @@ class AdminScreenState extends State<AdminScreen>{
         
         ),
         drawer: Drawer(
+          backgroundColor: Colors.purple,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -47,8 +64,7 @@ class AdminScreenState extends State<AdminScreen>{
               leading: Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: () {
-                Navigator.pop(context); 
-                Navigator.pop(context);
+                logOut(context);
               },
             ),
           ],
