@@ -45,10 +45,9 @@ class AdminScreenState extends State<AdminScreen>{
 
             ListTile(
               leading: Icon(Icons.logout),
-              title: Text('Logout'),
+              title: const Text('Logout'),
               onTap: () {
-                // Handle logout logic
-                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context); 
                 Navigator.pop(context);
               },
             ),
