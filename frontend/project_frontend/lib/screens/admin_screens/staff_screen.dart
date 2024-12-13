@@ -29,8 +29,7 @@ class StaffScreenState extends State<StaffScreen>{
           final scheduleData = snapshot.data!;
           for (int i = 0; i < scheduleData.length; i++){
             
-            staff.add(StaffCard(name: scheduleData[i]["name"], staffID: scheduleData[i]["staffID"], assignedTrainID: scheduleData[i]["assignedTrainID"] ?? null,role: scheduleData[i]["role"],));
-            // trains.add(TrainAdmin(trainID: scheduleData[i]["TrainID"], originStationID: scheduleData[i]["OriginStationID"], destinationStationID: scheduleData[i]["DestinationStationID"]));
+            staff.add(StaffCard(name: scheduleData[i]["Name"], staffID: scheduleData[i]["StaffID"], assignedTrainID: scheduleData[i]["AssignedTrainID"] ?? "",role: scheduleData[i]["Role"],));
           }
           return Column(
             children: [

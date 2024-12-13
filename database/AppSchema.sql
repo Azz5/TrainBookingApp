@@ -69,6 +69,7 @@ CREATE TABLE Staff (
     Name VARCHAR(100) NOT NULL,
     Role ENUM('Driver', 'Engineer', 'Admin') NOT NULL,
     AssignedTrainID VARCHAR(10),
+    EmplymentDate DATE NOT NULL,
     FOREIGN KEY (AssignedTrainID) REFERENCES Train(TrainID)
 );
 

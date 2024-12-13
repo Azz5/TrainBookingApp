@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend/dataHandler/api_service.dart';
-import 'package:project_frontend/widgets/admin_widgets/train_admin.dart';
+import 'package:project_frontend/widgets/admin_widgets/station_admin.dart';
 
 
 class StationsScreen extends StatefulWidget{

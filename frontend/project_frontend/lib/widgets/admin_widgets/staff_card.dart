@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_frontend/screens/admin_screens/trains_screen_admin.dart';
 
 class StaffCard extends StatelessWidget{
   const StaffCard({super.key, required this.name, required this.staffID, required this.assignedTrainID, required this.role});
@@ -9,6 +10,9 @@ class StaffCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: (){
+        assignedTrainID == "" ? Navigator.push(context, MaterialPageRoute(builder: (context) => TrainsAdminScreen(),)): null;
+      },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
