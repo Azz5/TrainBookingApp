@@ -5,7 +5,6 @@ export const getAllReservations = async () => {
     const [rows] = await pool.query('SELECT * FROM Reservation');
     rows.map((e) => {
         const formattedDate = e.Date.toISOString().split('T')[0];
-        console.log(formattedDate);
         e.Date = formattedDate;
         return e;
     })

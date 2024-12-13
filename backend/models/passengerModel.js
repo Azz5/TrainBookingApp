@@ -16,6 +16,15 @@ export const getPassengerByID = async (passengerID) => {
     return rows[0]; // Return the first row (or undefined if not found)
 };
 
+// Get a specific passenger by ID
+export const getPassengerByEmail = async (email) => {
+    const [rows] = await pool.query(
+        'SELECT * FROM Passenger WHERE email = ?',
+        [email]
+    );
+    return rows[0]; // Return the first row (or undefined if not found)
+};
+
 // Create a new passenger
 export const createPassenger = async (name, email, phoneNumber, loyaltyPoints, identificationDocument) => {
     const [result] = await pool.query(

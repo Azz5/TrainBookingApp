@@ -4,7 +4,8 @@ import {
     getPassengerByID,
     deletePassenger,
     createPassenger,
-    updatePassenger
+    updatePassenger,
+    getPassengerByEmail
 } from "../models/passengerModel.js";
 
 const router = express.Router();
@@ -33,6 +34,21 @@ router.get("/:id", async (req, res) => {
     } catch (e) {
         console.error(e);
         res.status(500).json({ error: "Failed to fetch passenger by ID" });
+    }
+});
+
+router.get("/by/:email", async (req,res) => {
+    try {
+        const email = req.params.email;
+        if (!email) return res.status(400).json({ error: "Passenger Email is required" });
+
+        const passenger = await getPassengerByEmail(email);
+        if (!passenger) return res.status(404).json({ error: "Passenger not found" });
+        return res.status(200).json({ passenger });
+
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: "Failed to fetch passenger by Email"})
     }
 });
 
