@@ -29,6 +29,19 @@ class ApiService {
     }
   }
 
+  // Get a passenger by ID
+  static Future<Map<String, dynamic>> getPassengerByEmail(String Email) async {
+    final response = await http.get(Uri.parse('$baseUrl/passenger/by/$Email'));
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 404) {
+      throw Exception('Passenger not found');
+    } else {
+      throw Exception('Failed to fetch passenger by Email');
+    }
+  }
+
   // Create a new passenger
   static Future<void> createPassenger(
       Map<String, dynamic> passengerData) async {
@@ -322,6 +335,29 @@ class ApiService {
       throw Exception('Train not found');
     } else {
       throw Exception('Failed to fetch train by ID');
+    }
+  }
+
+  static Future<List<dynamic>> getTrainsWithNoDriver() async {
+    final response = await http.get(Uri.parse('$baseUrl/train/MissingDriver'));
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 404) {
+      throw Exception('Trains not found');
+    } else {
+      throw Exception('Failed to fetch trains Missing Driver');
+    }
+  }
+
+  static Future<List<dynamic>> getTrainsWithNoEngineer() async {
+    final response =
+        await http.get(Uri.parse('$baseUrl/train/MissingEngineer'));
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 404) {
+      throw Exception('Trains not found');
+    } else {
+      throw Exception('Failed to fetch trains Missing Engineer');
     }
   }
 
