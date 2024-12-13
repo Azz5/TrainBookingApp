@@ -42,12 +42,12 @@ export const deleteStaff = async (staffID) => {
 };
 
 // Assign a train to a staff member
-export const assignTrainToStaff = async (staffID, trainID) => {
+export const assignTrainToStaff = async (staffID,scheduleDate ,trainID) => {
     const [result] = await pool.query(
         `UPDATE Staff 
-         SET AssignedTrainID = ?
+         SET AssignedTrainID = ?, ScheduleDate = ?
          WHERE StaffID = ?`,
-        [trainID, staffID]
+        [trainID, scheduleDate ,staffID]
     );
     return result.affectedRows;
 };

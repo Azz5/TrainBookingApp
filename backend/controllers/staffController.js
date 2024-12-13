@@ -126,20 +126,33 @@ router.delete("/:staffID", async (req, res) => {
 router.put("/:staffID/assign-train", async (req, res) => {
     try {
         const { staffID } = req.params;
-        const { trainID } = req.body;
+        const { trainID, scheduleDate } = req.body; // Use camelCase for consistency
 
-        if (!staffID || !trainID) {
-            return res.status(400).json({ error: "Staff ID and Train ID are required to assign a train" });
+        // Input Validation
+        if (!staffID) {
+            return res.status(400).json({ error: "Staff ID is required to assign a train" });
         }
 
-        const updatedRows = await assignTrainToStaff(staffID, trainID);
+        // If assigning a train, both trainID and scheduleDate are required
+        if (trainID && !scheduleDate) {
+            return res.status(400).json({ error: "scheduleDate is required when assigning a train" });
+        }
+
+        // If unassigning a train, ensure that both trainID and scheduleDate are null
+        if (!trainID && scheduleDate) {
+            return res.status(400).json({ error: "trainID must be provided when setting a scheduleDate" });
+        }
+
+        // Call the assignTrainToStaff function with correct parameters
+        const updatedRows = await assignTrainToStaff(staffID, scheduleDate || null, trainID || null);
+
         if (updatedRows === 0) {
             return res.status(404).json({ error: "Staff member not found or train assignment failed" });
         }
 
         res.status(200).json({ message: "Train assigned to staff member successfully" });
     } catch (e) {
-        console.error(e);
+        console.error('Error in /:staffID/assign-train:', e.message);
         res.status(500).json({ error: "Failed to assign train to staff member" });
     }
 });
