@@ -36,6 +36,47 @@ export const updateTicket = async (ticketID, reservationID, price, issueDate, va
     return result.affectedRows; // Return the number of rows affected
 };
 
+export const reservationTicketData = async  (ticketId) => {
+  const [result] = await pool.query(
+      `
+      SELECT
+      t.TicketID,
+      r.TrainID,
+      r.Date AS ReservationDate,
+      -- Departure info
+      s1.StationID AS OriginStationID,
+      s1.DepartureTime AS DepartureTime,
+      -- Arrival info
+      s2.StationID AS DestinationStationID,
+      s2.ArrivalTime AS ArrivalTime
+      FROM Ticket t
+      INNER JOIN Reservation r ON t.ReservationID = r.ReservationID
+      INNER JOIN Train tr ON r.TrainID = tr.TrainID
+      -- Join schedule for origin station (lowest StopSequence)
+      INNER JOIN Schedule s1 ON s1.TrainID = tr.TrainID
+      AND s1.ScheduleDate = r.Date
+      AND s1.StopSequence = (
+      SELECT MIN(StopSequence) 
+       FROM Schedule 
+       WHERE TrainID = tr.TrainID 
+       AND ScheduleDate = r.Date
+   )
+        -- Join schedule for destination station (highest StopSequence)
+      INNER JOIN Schedule s2 ON s2.TrainID = tr.TrainID
+      AND s2.ScheduleDate = r.Date
+      AND s2.StopSequence = (
+       SELECT MAX(StopSequence) 
+       FROM Schedule 
+       WHERE TrainID = tr.TrainID 
+       AND ScheduleDate = r.Date
+   )
+WHERE t.TicketID = ?; 
+
+      `,[ticketId]
+  )
+    return result[0]
+};
+
 // Delete a ticket
 export const deleteTicket = async (ticketID) => {
     const [result] = await pool.query(
