@@ -11,6 +11,19 @@ export const getAllReservations = async () => {
     return rows;
 };
 
+export const getReservationByEmail = async (email) => {
+    const [rows] = await pool.query(
+        `SELECT r.* 
+         FROM Reservation r
+         JOIN Passenger p ON r.PassengerID = p.PassengerID
+         WHERE p.Email = ?`,
+        [email]
+    );
+
+    // If no rows found, return null; otherwise return the reservation data
+    return rows.length > 0 ? rows : null;
+};
+
 // Get a reservation by ID
 export const getReservationByID = async (reservationID) => {
     const [rows] = await pool.query(
