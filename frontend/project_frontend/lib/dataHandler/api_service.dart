@@ -567,16 +567,20 @@ class ApiService {
     }
   }
 
-  // Promote a passenger's priority in the waitlist
-  static Future<void> promoteWaitlistEntry(String waitlistID, String scheduleDate) async {
+// Promote a passenger's priority in the waitlist
+  static Future<void> promoteWaitlistEntry(String waitlistID, String scheduleDate, String seatNumber) async {
     final response = await http.put(
       Uri.parse('$baseUrl/waitlist/promote/$waitlistID'),
       headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'scheduleDate': scheduleDate,
+        'seatNumber': seatNumber,
+      }),
     );
+
     if (response.statusCode != 200) {
       throw Exception('Failed to promote waitlist entry');
     } else {
       print("Workingggg !!!");
     }
   }
-}
