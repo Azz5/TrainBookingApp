@@ -547,7 +547,7 @@ class ApiService {
   }
 
   // Promote a passenger's priority in the waitlist
-  static Future<void> promoteWaitlistEntry(String waitlistID) async {
+  static Future<void> promoteWaitlistEntry(int waitlistID) async {
     final response = await http.put(
       Uri.parse('$baseUrl/waitlist/promote/$waitlistID'),
       headers: {'Content-Type': 'application/json'},

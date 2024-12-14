@@ -50,16 +50,15 @@ class _UserScreenState extends State<UserScreen> {
        // automaticallyImplyLeading: false,
       ),
       drawer: Drawer(
-        shadowColor: Colors.purple,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Color.fromARGB(255, 78, 39, 176),
               ),
               child: Text(
-                'Drawer Header',
+                'Settings',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,

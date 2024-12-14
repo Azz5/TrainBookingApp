@@ -5,6 +5,7 @@ import 'package:project_frontend/widgets/admin_widgets/staff_card.dart';
 import 'package:project_frontend/screens/admin_screens/staff_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_frontend/screens/registration_screens/login_screen.dart';
+import 'package:project_frontend/screens/admin_screens/tains_waitlist_screen.dart';
 
 
 
@@ -43,16 +44,16 @@ class AdminScreenState extends State<AdminScreen>{
         
         ),
         drawer: Drawer(
-          backgroundColor: Colors.purple,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             const DrawerHeader(
+              
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Color.fromARGB(255, 78, 39, 176),
               ),
               child: Text(
-                'Drawer Header',
+                'Settings',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -61,7 +62,7 @@ class AdminScreenState extends State<AdminScreen>{
             ),
 
             ListTile(
-              leading: Icon(Icons.logout),
+              leading: const Icon(Icons.logout),
               title: const Text('Logout'),
               onTap: () {
                 logOut(context);
@@ -71,7 +72,7 @@ class AdminScreenState extends State<AdminScreen>{
         ),
       ),
       body: Center(
-        child: index == 0? const ModificationsScreen() : index == 1? const StationsScreen() : const StaffScreen(),
+        child: index == 0? const ModificationsScreen() : index == 1? const StationsScreen() : index == 2? const StaffScreen() : const TrainsWaitlistScreen(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: index,

@@ -22,7 +22,7 @@ class ReservationState extends State<Reservation>{
     int id = widget.data["ReservationID"];
     widget.data.remove("ReservationID");
     String payment = widget.data["PaymentStatus"];
-    String seat = widget.data["SeatNumber"];
+    int seat = widget.data["SeatNumber"];
     String date = widget.data["Date"];
     String month = date.substring(5,7);
     String day = date.substring(8,10);
