@@ -554,6 +554,8 @@ class ApiService {
     );
     if (response.statusCode != 200) {
       throw Exception('Failed to promote waitlist entry');
+    } else {
+      print("Workingggg !!!");
     }
   }
 }
