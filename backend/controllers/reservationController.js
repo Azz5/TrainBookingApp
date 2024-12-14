@@ -4,7 +4,7 @@ import {
     getReservationByID,
     createReservation,
     updateReservation,
-    deleteReservation
+    deleteReservation, getReservationByEmail
 } from "../models/reservationModel.js";
 
 const router = express.Router();
@@ -33,6 +33,22 @@ router.get("/:id", async (req, res) => {
     } catch (e) {
         console.error(e);
         res.status(500).json({ error: "Failed to fetch reservation by ID" });
+    }
+});
+
+// Get a reservation by passenger email
+router.get("/by/:email", async (req, res) => {
+    try {
+        const { email } = req.params;
+        if (!email) return res.status(400).json({ error: "Passenger Email is required" });
+
+        const reservation = await getReservationByEmail(email);
+        if (!reservation) return res.status(404).json({ error: "No reservation found for the provided email" });
+
+        res.status(200).json(reservation);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: "Failed to fetch reservation by email" });
     }
 });
 

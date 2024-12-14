@@ -289,6 +289,18 @@ class ApiService {
     }
   }
 
+  static Future<Map<String, dynamic>> getReservationByEmail(String email) async {
+    final response = await http.get(Uri.parse('$baseUrl/reservation/by/$email'));
+    if (response.statusCode == 200) {
+      // Assuming the server returns a single reservation as a JSON object
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 404) {
+      throw Exception('No reservation found for the provided email');
+    } else {
+      throw Exception('Failed to fetch reservation by email');
+    }
+  }
+
   // Update a reservation
   static Future<void> updateReservation(
       String id, Map<String, dynamic> reservationData) async {
@@ -547,7 +559,7 @@ class ApiService {
   }
 
   // Promote a passenger's priority in the waitlist
-  static Future<void> promoteWaitlistEntry(String waitlistID) async {
+  static Future<void> promoteWaitlistEntry(String waitlistID, String scheduleDate) async {
     final response = await http.put(
       Uri.parse('$baseUrl/waitlist/promote/$waitlistID'),
       headers: {'Content-Type': 'application/json'},
