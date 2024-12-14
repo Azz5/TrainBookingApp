@@ -72,11 +72,12 @@ router.delete("/:waitlistID", async (req, res) => {
 router.put("/promote/:waitlistID", async (req, res) => {
     try {
         const { waitlistID } = req.params;
-        if (!waitlistID) {
+        const { scheduleDate,seatNumber } = req.body;
+        if (!waitlistID || !scheduleDate || !seatNumber){
             return res.status(400).json({ error: "Waitlist ID is required" });
         }
 
-        const updatedRows = await promoteFromWaitlist(waitlistID);
+        const updatedRows = await promoteFromWaitlist(waitlistID,scheduleDate,seatNumber);
         if (updatedRows === 0) {
             return res.status(404).json({ error: "Waitlist entry not found or already at highest priority" });
         }

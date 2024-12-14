@@ -5,10 +5,26 @@ import {
     getTicketByID,
     createTicket,
     updateTicket,
-    deleteTicket,
+    deleteTicket, reservationTicketData,
 } from "../models/ticketModel.js";
 
 const router = express.Router();
+
+router.get("/data/:id", async (req,res) => {
+    try {
+        const {id} = req.params;
+        if (!id) return res.status(400).json({error: "Ticket ID is required"});
+
+        const ticket = await reservationTicketData(id);
+        if (!ticket) return res.status(404).json({error: "Ticket not found"});
+
+        res.status(200).json(ticket);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({error: "Failed to fetch ticket by ID"});
+    }
+});
+
 
 // Get all tickets
 router.get("/", async (req, res) => {
@@ -40,13 +56,13 @@ router.get("/:id", async (req, res) => {
 // Create a new ticket
 router.post("/", async (req, res) => {
     try {
-        const { ticketID, reservationID, price, issueDate, validity } = req.body;
+        const { ticketID, reservationID, issueDate } = req.body;
 
-        if (!ticketID || !reservationID || !price || !issueDate || !validity) {
+        if (!ticketID || !reservationID || !issueDate) {
             return res.status(400).json({ error: "All fields are required to create a ticket" });
         }
 
-        const newTicketID = await createTicket(ticketID, reservationID, price, issueDate, validity);
+        const newTicketID = await createTicket(ticketID, reservationID );
         res.status(201).json({ message: "Ticket created successfully", ticketID: newTicketID });
     } catch (e) {
         console.error(e);
@@ -58,13 +74,13 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const { reservationID, price, issueDate, validity } = req.body;
+        const { reservationID, issueDate } = req.body;
 
-        if (!reservationID || !price || !issueDate || !validity) {
+        if (!reservationID ||  !issueDate ) {
             return res.status(400).json({ error: "All fields are required to update a ticket" });
         }
 
-        const updatedRows = await updateTicket(id, reservationID, price, issueDate, validity);
+        const updatedRows = await updateTicket(id, reservationID,  issueDate );
         if (updatedRows === 0) {
             return res.status(404).json({ error: "Ticket not found or no changes made" });
         }

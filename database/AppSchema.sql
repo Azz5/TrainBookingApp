@@ -32,7 +32,7 @@ CREATE TABLE Train (
 CREATE TABLE Schedule (
     ScheduleID INT AUTO_INCREMENT PRIMARY KEY,
     TrainID VARCHAR(10) NOT NULL,
-    StationID INT NOT NULL,
+    StationID INT NOT NULL, -- departure
     StopSequence INT NOT NULL,
     ArrivalTime TIME,
     DepartureTime TIME,

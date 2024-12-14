@@ -218,7 +218,16 @@ class ApiService {
       throw Exception('Failed to fetch ticket by ID');
     }
   }
-
+  static Future<Map<String, dynamic>> getAllTicketDataByID(String id) async {
+    final response = await http.get(Uri.parse('$baseUrl/ticket/data/$id'));
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else if (response.statusCode == 404) {
+      throw Exception('Ticket not found');
+    } else {
+      throw Exception('Failed to fetch ticket by ID');
+    }
+  }
   // Create a new ticket
   static Future<void> createTicket(Map<String, dynamic> ticketData) async {
     final response = await http.post(
