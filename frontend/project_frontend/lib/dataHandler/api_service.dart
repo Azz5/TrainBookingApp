@@ -3,11 +3,13 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   static const String baseUrl = 'http://127.0.0.1:3333';
+
   static String _formatDate(DateTime date) {
     return '${date.year.toString().padLeft(4, '0')}-'
         '${date.month.toString().padLeft(2, '0')}-'
         '${date.day.toString().padLeft(2, '0')}';
   }
+
   // ----------- PASSENGERS -----------
   // Get all passengers
   static Future<List<dynamic>> getAllPassengers() async {
@@ -61,8 +63,8 @@ class ApiService {
   }
 
   // Update a passenger
-  static Future<void> updatePassenger(
-      String id, Map<String, dynamic> passengerData) async {
+  static Future<void> updatePassenger(String id,
+      Map<String, dynamic> passengerData) async {
     final response = await http.put(
       Uri.parse('$baseUrl/passenger/$id'),
       headers: {'Content-Type': 'application/json'},
@@ -120,8 +122,8 @@ class ApiService {
   }
 
   // Update a station
-  static Future<void> updateStation(
-      String id, Map<String, dynamic> stationData) async {
+  static Future<void> updateStation(String id,
+      Map<String, dynamic> stationData) async {
     final response = await http.put(
       Uri.parse('$baseUrl/station/$id'),
       headers: {'Content-Type': 'application/json'},
@@ -176,8 +178,8 @@ class ApiService {
   }
 
   // Update a schedule
-  static Future<void> updateSchedule(
-      String id, Map<String, dynamic> scheduleData) async {
+  static Future<void> updateSchedule(String id,
+      Map<String, dynamic> scheduleData) async {
     final response = await http.put(
       Uri.parse('$baseUrl/schedule/$id'),
       headers: {'Content-Type': 'application/json'},
@@ -218,6 +220,7 @@ class ApiService {
       throw Exception('Failed to fetch ticket by ID');
     }
   }
+
   static Future<Map<String, dynamic>> getAllTicketDataByID(String id) async {
     final response = await http.get(Uri.parse('$baseUrl/ticket/data/$id'));
     if (response.statusCode == 200) {
@@ -228,6 +231,7 @@ class ApiService {
       throw Exception('Failed to fetch ticket by ID');
     }
   }
+
   // Create a new ticket
   static Future<void> createTicket(Map<String, dynamic> ticketData) async {
     final response = await http.post(
@@ -241,8 +245,8 @@ class ApiService {
   }
 
   // Update a ticket
-  static Future<void> updateTicket(
-      String id, Map<String, dynamic> ticketData) async {
+  static Future<void> updateTicket(String id,
+      Map<String, dynamic> ticketData) async {
     final response = await http.put(
       Uri.parse('$baseUrl/ticket/$id'),
       headers: {'Content-Type': 'application/json'},
@@ -275,7 +279,7 @@ class ApiService {
   // Get a reservation by ID
   static Future<Map<String, dynamic>> getReservationByID(String id) async {
     final response =
-        await http.get(Uri.parse('$baseUrl/reservation/$id')); // Corrected path
+    await http.get(Uri.parse('$baseUrl/reservation/$id')); // Corrected path
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else if (response.statusCode == 404) {
@@ -298,8 +302,10 @@ class ApiService {
     }
   }
 
-  static Future<Map<String, dynamic>> getReservationByEmail(String email) async {
-    final response = await http.get(Uri.parse('$baseUrl/reservation/by/$email'));
+  static Future<Map<String, dynamic>> getReservationByEmail(
+      String email) async {
+    final response = await http.get(
+        Uri.parse('$baseUrl/reservation/by/$email'));
     if (response.statusCode == 200) {
       // Assuming the server returns a single reservation as a JSON object
       return jsonDecode(response.body);
@@ -311,8 +317,8 @@ class ApiService {
   }
 
   // Update a reservation
-  static Future<void> updateReservation(
-      String id, Map<String, dynamic> reservationData) async {
+  static Future<void> updateReservation(String id,
+      Map<String, dynamic> reservationData) async {
     print("Updating Reservation with ID: $id");
     print("Data: ${jsonEncode(reservationData)}");
 
@@ -378,7 +384,7 @@ class ApiService {
 
   static Future<List<dynamic>> getTrainsWithNoEngineer() async {
     final response =
-        await http.get(Uri.parse('$baseUrl/train/MissingEngineer'));
+    await http.get(Uri.parse('$baseUrl/train/MissingEngineer'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else if (response.statusCode == 404) {
@@ -401,8 +407,8 @@ class ApiService {
   }
 
   // Update a train
-  static Future<void> updateTrain(
-      String id, Map<String, dynamic> trainData) async {
+  static Future<void> updateTrain(String id,
+      Map<String, dynamic> trainData) async {
     final response = await http.put(
       Uri.parse('$baseUrl/train/$id'),
       headers: {'Content-Type': 'application/json'},
@@ -457,8 +463,8 @@ class ApiService {
   }
 
   // Update a staff member
-  static Future<void> updateStaff(
-      String staffID, Map<String, dynamic> staffData) async {
+  static Future<void> updateStaff(String staffID,
+      Map<String, dynamic> staffData) async {
     final response = await http.put(
       Uri.parse('$baseUrl/staff/$staffID'),
       headers: {'Content-Type': 'application/json'},
@@ -478,7 +484,8 @@ class ApiService {
   }
 
   // Assign a train to a staff member
-  static Future<void> assignTrainToStaff(String staffID, String trainID, String scheduleDate) async {
+  static Future<void> assignTrainToStaff(String staffID, String trainID,
+      String scheduleDate) async {
     // Input Validation
     if (staffID.isEmpty) {
       throw Exception('Staff ID must not be empty.');
@@ -510,15 +517,19 @@ class ApiService {
       } else if (response.statusCode == 400 || response.statusCode == 404) {
         // Client-side errors
         final responseBody = jsonDecode(response.body);
-        final errorMessage = responseBody['error'] ?? 'Failed to assign/unassign train to staff member.';
+        final errorMessage = responseBody['error'] ??
+            'Failed to assign/unassign train to staff member.';
         throw Exception(errorMessage);
       } else {
         // Other server-side errors
-        throw Exception('Failed to assign/unassign train to staff member. Status Code: ${response.statusCode}');
+        throw Exception(
+            'Failed to assign/unassign train to staff member. Status Code: ${response
+                .statusCode}');
       }
     } catch (e) {
       // Handle network errors or JSON parsing errors
-      throw Exception('Error assigning/unassigning train to staff member: ${e.toString()}');
+      throw Exception(
+          'Error assigning/unassigning train to staff member: ${e.toString()}');
     }
   }
 
@@ -538,7 +549,7 @@ class ApiService {
   // Get all waitlisted passengers for a specific train
   static Future<List<dynamic>> getWaitlistByTrain(String trainID) async {
     final response =
-        await http.get(Uri.parse('$baseUrl/waitlist/train/$trainID'));
+    await http.get(Uri.parse('$baseUrl/waitlist/train/$trainID'));
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
@@ -561,14 +572,15 @@ class ApiService {
   // Remove a passenger from the waitlist
   static Future<void> removeFromWaitlist(String waitlistID) async {
     final response =
-        await http.delete(Uri.parse('$baseUrl/waitlist/$waitlistID'));
+    await http.delete(Uri.parse('$baseUrl/waitlist/$waitlistID'));
     if (response.statusCode != 200) {
       throw Exception('Failed to remove from waitlist');
     }
   }
 
 // Promote a passenger's priority in the waitlist
-  static Future<void> promoteWaitlistEntry(String waitlistID, String scheduleDate, String seatNumber) async {
+  static Future<void> promoteWaitlistEntry(String waitlistID,
+      String scheduleDate, String seatNumber) async {
     final response = await http.put(
       Uri.parse('$baseUrl/waitlist/promote/$waitlistID'),
       headers: {'Content-Type': 'application/json'},

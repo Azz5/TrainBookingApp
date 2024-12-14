@@ -50,7 +50,7 @@ class WaitlistCard extends StatelessWidget{
                         Text("class: $classism"),
                         const Spacer(),
                         TextButton(onPressed: ()async {
-                         // await ApiService.promoteWaitlistEntry(waitlistID,);
+                          //await ApiService.promoteWaitlistEntry(waitlistID);
                         }, child: const Text("Promote")),
                         const SizedBox(width: 7,),
                       ],
