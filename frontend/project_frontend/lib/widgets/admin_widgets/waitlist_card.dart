@@ -8,6 +8,7 @@ class WaitlistCard extends StatelessWidget{
   final String classism;
   final String priority;
   final int waitlistID;
+  // final String date;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,7 +50,7 @@ class WaitlistCard extends StatelessWidget{
                         Text("class: $classism"),
                         const Spacer(),
                         TextButton(onPressed: ()async {
-                          await ApiService.promoteWaitlistEntry(waitlistID);
+                         // await ApiService.promoteWaitlistEntry(waitlistID,);
                         }, child: const Text("Promote")),
                         const SizedBox(width: 7,),
                       ],

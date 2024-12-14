@@ -102,7 +102,9 @@ class ReservationState extends State<Reservation>{
                   Text("Seat:\n $seat" , style: const TextStyle(fontWeight: FontWeight.bold),)
                 ],
               ),
-              const SizedBox(width: 66,),
+              const SizedBox(width: 50,),
+              const Text("Price: \n60SR",style: TextStyle(fontWeight: FontWeight.bold),),
+              const SizedBox(width: 45,),
               Text("Payment:\n $payment", style: const TextStyle(fontWeight: FontWeight.bold),)
             ],
           ),

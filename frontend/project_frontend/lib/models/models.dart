@@ -7,6 +7,7 @@ class Schedule{
   String departureCity;
   String arrivalCity;
   String trainId;
+  String date;
   Schedule(
     this.scheduleId,
     this.departureTime,
@@ -14,6 +15,7 @@ class Schedule{
     this.departureCity,
     this.arrivalCity,
     this.trainId,
+    this.date
   );
 }
 

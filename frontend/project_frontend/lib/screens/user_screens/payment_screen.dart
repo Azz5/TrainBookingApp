@@ -43,7 +43,6 @@ class PaymentScreenState extends State<PaymentScreen>{
                 }
               },
             ),
-            //const SizedBox(height: 200,),
             CVVTextField(
               onChanged: (input) {
                 if (input.length == 3){
@@ -51,7 +50,9 @@ class PaymentScreenState extends State<PaymentScreen>{
                 }
               },
             ),
-            const SizedBox(height: 300,),
+            const SizedBox(height: 150,),
+            const Text("Price: 60SR", style: TextStyle(fontWeight: FontWeight.bold),),
+            const SizedBox(height: 150,),
             ElevatedButton(
               onPressed: () async{
                 if (isCCfull && isCVVfull){
@@ -60,6 +61,7 @@ class PaymentScreenState extends State<PaymentScreen>{
                   print(widget.reservationData);
                  await ApiService.updateReservation(widget.id.toString(), widget.reservationData);
                   Navigator.pop(context);
+                  //await ApiService.createTicket(ticketData)
                 }
               },
               style: const ButtonStyle(

@@ -24,9 +24,9 @@ class ReservationScreen  extends StatelessWidget{
         } else if (snapshot.hasData) {
           final scheduleData = snapshot.data!;
           for (int i = 0; i < scheduleData.length; i++){
-            if (scheduleData[i]["Email"] == email){
+           // if (scheduleData[i]["Email"] == email){
             reservations.add(Reservation(data: scheduleData[i],));
-            }
+           // }
           }
           return Column(
             children: reservations,
