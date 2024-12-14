@@ -17,9 +17,10 @@ class RegistrationScreen extends StatelessWidget{
 
     FirebaseAuth auth = FirebaseAuth.instance;
     
-    Future<void> register(String email, String password) async{
+    Future<void> register(String email, String password, String name, String phoneNumber) async{
       
       await auth.createUserWithEmailAndPassword(email: email, password: password);
+      await ApiService.createPassenger({"name" : name , "email" : email,"phoneNumber" : phoneNumber,"loyaltyPoints":"50"});
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar( const SnackBar(content: Text("Registration is Successful.")));
 
@@ -32,6 +33,8 @@ class RegistrationScreen extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const TextFieldContainer(Icons.email, "Email"),
+            const TextFieldContainer(Icons.person, "Name"),
+            const TextFieldContainer(Icons.phone, "PhoneNumber"),
             const TextFieldContainer(Icons.lock, "Password"),
             const TextFieldContainer(Icons.lock, "Confirm Password"),
             const SizedBox(height: 50,),
@@ -39,13 +42,14 @@ class RegistrationScreen extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(onPressed: (){Navigator.pop(context);}, child: const Text("Cancel")),
-                ElevatedButton(onPressed: (){
+                ElevatedButton(onPressed: () async {
                   String email = context.read<LoginProvider>().email;
                   String password = context.read<LoginProvider>().password;
+                  String name= context.read<LoginProvider>().name;
+                  String phoneNumber= context.read<LoginProvider>().phoneNumber;
                   String confirmedPassword = context.read<LoginProvider>().confirmedPassword;
                   if (password == confirmedPassword){
-                    register(email, password);
-                    ApiService.createPassenger({"PassengerID" : 1,"Name" : "aziz", "Email" : email,"PhoneNumber" : "929293293","LoyaltyPoints":100});
+                    register(email, password,name,phoneNumber);
                   }else{
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Error: Unmatched password")));
                   }

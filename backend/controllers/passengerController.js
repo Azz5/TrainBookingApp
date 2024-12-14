@@ -55,15 +55,16 @@ router.get("/by/:email", async (req,res) => {
 // Create a new passenger
 router.post("/", async (req, res) => {
     try {
-        const { name, age, gender, email } = req.body;
-
-        // Validate input
-        if (!name || !age || !gender || !email) {
-            return res.status(400).json({ error: "All fields are required to create a passenger" });
+        const { name, email, phoneNumber, loyaltyPoints} = req.body;
+        console.log(req.body)
+        if (!name || !email || !phoneNumber|| !loyaltyPoints) {
+            return res.status(400).json({ error: "All fields are required to update a passenger" });
         }
-
-        const newPassenger = await createPassenger({ name, age, gender, email });
-        res.status(201).json({ message: "Passenger created successfully", data: newPassenger });
+        console.log(req.body)
+        let k =null;
+        const newPassenger = await createPassenger(name, email, phoneNumber, loyaltyPoints,k);
+        console.log(newPassenger)
+        res.status(201).json({ messemail: "Passenger created successfully", data: newPassenger });
     } catch (e) {
         console.error(e);
         res.status(500).json({ error: "Failed to create passenger" });
@@ -74,19 +75,19 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, age, gender, email } = req.body;
+        const { name, email, phoneNumber, loyaltyPoints} = req.body;
 
         // Validate input
-        if (!id || !name || !age || !gender || !email) {
+        if (!id || !name || !email || !phoneNumber|| !loyaltyPoints) {
             return res.status(400).json({ error: "All fields are required to update a passenger" });
         }
 
-        const updatedRows = await updatePassenger(id, { name, age, gender, email });
+        const updatedRows = await updatePassenger(id, { name, email, phoneNumber, loyaltyPoints});
         if (updatedRows === 0) {
             return res.status(404).json({ error: "Passenger not found or no changes made" });
         }
 
-        res.status(200).json({ message: "Passenger updated successfully" });
+        res.status(200).json({ messemail: "Passenger updated successfully" });
     } catch (e) {
         console.error(e);
         res.status(500).json({ error: "Failed to update passenger" });
@@ -101,7 +102,7 @@ router.delete("/:id", async (req, res) => {
 
         const deleted = await deletePassenger(id);
         if (deleted) {
-            res.status(200).json({ message: "Passenger deleted successfully" });
+            res.status(200).json({ messemail: "Passenger deleted successfully" });
         } else {
             res.status(404).json({ error: "Passenger not found" });
         }
