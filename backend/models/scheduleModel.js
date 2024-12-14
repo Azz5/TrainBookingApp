@@ -6,6 +6,31 @@ export const getAllSchedules = async () => {
     return rows;
 };
 
+export const getAllAllSchedules = async () => {
+    const query = `
+SELECT 
+    T.TrainID,
+    T.TrainName_EN,
+    T.TrainName_AR,
+    OriginStation.StationName AS OriginStationName,
+    OriginStation.Location AS OriginLocation,
+    DestinationStation.StationName AS DestinationStationName,
+    DestinationStation.Location AS DestinationLocation,
+    T.ScheduleDate
+FROM 
+    Train T
+JOIN 
+    Station OriginStation ON T.OriginStationID = OriginStation.StationID
+JOIN 
+    Station DestinationStation ON T.DestinationStationID = DestinationStation.StationID;
+        
+
+    `;
+
+    const [rows] = await pool.query(query);
+    return rows;
+};
+
 // Get a schedule by ID
 export const getScheduleByID = async (scheduleID) => {
     const [rows] = await pool.query(

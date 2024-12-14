@@ -152,8 +152,16 @@ class ApiService {
       throw Exception('Failed to fetch schedules');
     }
   }
+  static Future<List<dynamic>> getAllAllSchedules() async {
+    final response = await http.get(Uri.parse('$baseUrl/schedule/all'));
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to fetch schedules');
+    }
+  }
 
-  // Get a schedule by ID
+    // Get a schedule by ID
   static Future<Map<String, dynamic>> getScheduleByID(String id) async {
     final response = await http.get(Uri.parse('$baseUrl/schedule/$id'));
     if (response.statusCode == 200) {
