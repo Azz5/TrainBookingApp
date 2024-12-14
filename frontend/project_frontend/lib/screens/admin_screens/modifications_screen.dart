@@ -14,8 +14,8 @@ class ModificationsScreenState extends State<ModificationsScreen>{
   @override
   Widget build(BuildContext context) {
     List<ReservationAdmin> reservations = [];
-    return Column(
-      children: [
+    return Center(
+      child: 
         ListView(
           children: [
             FutureBuilder<List<dynamic>>(
@@ -33,22 +33,21 @@ class ModificationsScreenState extends State<ModificationsScreen>{
               }
               return Column(
                   children: [
-                    ...reservations
-        // for (int i = 0; i < reservations.length; i++)
-        //   Dismissible(
-        //     key: Key('$i'), 
-        //     onDismissed: (direction) {
-        //       reservations.removeAt(i);
-        //       ApiService.deleteReservation(i.toString());
-        //     },
-        //     background: Container(
-        //       color: Colors.red,
-        //       alignment: Alignment.centerRight,
-        //       padding: const EdgeInsets.symmetric(horizontal: 20),
-        //       child: const Text("Cancel",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
-        //     ),
-        //     child: reservations[i], 
-        //   ),
+        for (int i = 0; i < reservations.length; i++)
+          Dismissible(
+            key: Key('$i'), 
+            onDismissed: (direction) {
+              reservations.removeAt(i);
+              ApiService.deleteReservation(i.toString());
+            },
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: const Text("Cancel",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
+            ),
+            child: reservations[i], 
+          ),
           ],
                 //reservations,
               );
@@ -59,15 +58,6 @@ class ModificationsScreenState extends State<ModificationsScreen>{
         ),
           ],
         ),
-        Row(
-          children: [
-            const Spacer(),
-            IconButton(onPressed: (){
-              
-            }, icon: const Icon(Icons.add))
-          ],
-        ),
-      ],
     );
   }
 }
