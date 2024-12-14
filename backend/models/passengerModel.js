@@ -27,6 +27,15 @@ export const getPassengerByEmail = async (email) => {
 
 // Create a new passenger
 export const createPassenger = async (name, email, phoneNumber, loyaltyPoints, identificationDocument) => {
+    console.log(name,email)
+    if (!name || !email ) {
+        throw new Error('Name, Email, and IdentificationDocument are required fields.');
+    }
+
+    if (loyaltyPoints == null || isNaN(loyaltyPoints)) {
+        loyaltyPoints = 0; // default to 0 if loyaltyPoints is not provided or invalid
+    }
+    identificationDocument = "ID";
     const [result] = await pool.query(
         `INSERT INTO Passenger (Name, Email, PhoneNumber, LoyaltyPoints, IdentificationDocument)
         VALUES (?, ?, ?, ?, ?)`,

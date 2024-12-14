@@ -2,21 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:project_frontend/providers/login_provider.dart';
 import 'package:provider/provider.dart';
 
-
-
 class TextFieldContainer extends StatelessWidget {
   const TextFieldContainer(
-    this.icon, 
-    this.string , 
-    {super.key}
-    );
+      this.icon,
+      this.string,
+      {super.key}
+      );
+
   final IconData icon;
   final String string;
 
-  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    // Determine the correct controller based on the 'string' label
+    final loginProvider = context.read<LoginProvider>();
+    TextEditingController controller;
+    Function(String) onChanged;
+
+    if (string == "Email") {
+      controller = loginProvider.emailController;
+      onChanged = loginProvider.enterEmail;
+    } else if (string == "Password") {
+      controller = loginProvider.passwordController;
+      onChanged = loginProvider.enterPassword;
+    } else if (string == "Confirm Password") {
+      controller = loginProvider.confirmedPasswordController;
+      onChanged = loginProvider.enterConfirmedPassword;
+    } else if (string == "Name") {
+      controller = loginProvider.nameController;
+      onChanged = loginProvider.enterName;
+    } else if (string == "PhoneNumber") {
+      controller = loginProvider.phoneNumberController;
+      onChanged = loginProvider.enterPhoneNumber;
+    } else {
+      // Default to email if something unexpected occurs
+      controller = loginProvider.emailController;
+      onChanged = loginProvider.enterEmail;
+    }
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -28,21 +52,17 @@ class TextFieldContainer extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon,color: Colors.grey,),
-          const SizedBox(width: 20,),
+          Icon(icon, color: Colors.grey),
+          const SizedBox(width: 20),
           Expanded(
             child: TextField(
-              controller: string == "Email"? context.read<LoginProvider>().emailController :  
-                          string == "Password"? context.read<LoginProvider>().passwordController : 
-                          context.read<LoginProvider>().confirmedPasswordController,
+              controller: controller,
               keyboardType: TextInputType.text,
-              onChanged: (value)=> string == "Email"? context.read<LoginProvider>().enterEmail(value) : 
-                                   string == "Password"? context.read<LoginProvider>().enterPassword(value) :
-                                   context.read<LoginProvider>().enterConfirmedPassword(value),
-              obscureText: icon == Icons.lock? true : false,
+              onChanged: onChanged,
+              obscureText: icon == Icons.lock ? true : false,
               decoration: InputDecoration(
                 enabledBorder: InputBorder.none,
-                hintText: string
+                hintText: string,
               ),
             ),
           ),

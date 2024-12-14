@@ -13,11 +13,11 @@ class ReservationAdmin extends StatefulWidget{
 class ReservationState extends State<ReservationAdmin>{
   @override
   Widget build(BuildContext context) {
-    String reservationID = widget.data["ReservationID"].toString();
+    int reservationID = widget.data["ReservationID"];
     String trainID = widget.data["TrainID"];
-    String passengerID = widget.data["PassengerID"].toString();
+    int passengerID = widget.data["PassengerID"];
     String paymentStatus = widget.data["PaymentStatus"];
-    String seat = widget.data["SeatNumber"];
+    int seat = widget.data["SeatNumber"];
     String date = widget.data["Date"].substring(0,10);
     return InkWell(
       onTap: (){
