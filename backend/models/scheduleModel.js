@@ -9,22 +9,24 @@ export const getAllSchedules = async () => {
 export const getAllAllSchedules = async () => {
     const query = `
 SELECT 
+    S.ScheduleID,
     T.TrainID,
     T.TrainName_EN,
     T.TrainName_AR,
-    OriginStation.StationName AS OriginStationName,
-    OriginStation.Location AS OriginLocation,
-    DestinationStation.StationName AS DestinationStationName,
-    DestinationStation.Location AS DestinationLocation,
-    T.ScheduleDate
+    T.ScheduleDate AS TrainScheduleDate,
+    St.StationName AS StopStation,
+    St.Location AS StopLocation,
+    S.StopSequence,
+    S.ArrivalTime,
+    S.DepartureTime
 FROM 
-    Train T
+    Schedule S
 JOIN 
-    Station OriginStation ON T.OriginStationID = OriginStation.StationID
+    Train T ON S.TrainID = T.TrainID
 JOIN 
-    Station DestinationStation ON T.DestinationStationID = DestinationStation.StationID;
-        
-
+    Station St ON S.StationID = St.StationID
+ORDER BY 
+    T.TrainID, S.StopSequence;
     `;
 
     const [rows] = await pool.query(query);
