@@ -4,11 +4,20 @@ import {
     getScheduleByID,
     createSchedule,
     updateSchedule,
-    deleteSchedule,
+    deleteSchedule, getAllAllSchedules,
 } from "../models/scheduleModel.js";
 
 const router = express.Router();
 
+router.get("/all", async (req, res) => {
+    try {
+        const schedules = await getAllAllSchedules();
+        res.status(200).json(schedules);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: "Failed to fetch schedules" });
+    }
+});
 // Get all schedules
 router.get("/", async (req, res) => {
     try {
