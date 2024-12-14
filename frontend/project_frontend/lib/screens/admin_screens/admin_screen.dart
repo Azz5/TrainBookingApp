@@ -81,7 +81,7 @@ class AdminScreenState extends State<AdminScreen>{
         onTap: (value) => onChangeIndex(value),
         items: const [
         BottomNavigationBarItem(icon: Icon(Icons.train), label: "Reservations"),
-        BottomNavigationBarItem(icon: Icon(Icons.horizontal_distribute_rounded), label: "Stations"),
+        BottomNavigationBarItem(icon: Icon(Icons.location_on), label: "Stations"),
         BottomNavigationBarItem(icon: Icon(Icons.people), label: "Staff"),
         BottomNavigationBarItem(icon: Icon(Icons.hourglass_top_outlined),label:  "Waitlist"),
       ]),
