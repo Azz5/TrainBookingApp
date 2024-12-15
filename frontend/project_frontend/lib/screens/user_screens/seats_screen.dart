@@ -1,59 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:project_frontend/widgets/icon_seat.dart';
 import 'package:project_frontend/models/models.dart';
-import 'package:collection/collection.dart';
 
-  // List<List<IconSeat>> icons = [
-  //   [
-  //     const IconSeat(isReserved: false,id: 00,),
-  //     const IconSeat(isReserved: false,id: 01,),
-  //     const IconSeat(isReserved: false, id: 02,),
-  //     const IconSeat(isReserved: false,id: 03,),
-  //     const IconSeat(isReserved: false,id: 04,),
-  //     const IconSeat(isReserved: false, id: 05,),
-  //     const IconSeat(isReserved: false,id: 06,),
-  //     const IconSeat(isReserved: false,id: 07,),
-  //     const IconSeat(isReserved: false, id: 08,),
-  //     const IconSeat(isReserved: false, id: 09)
-  //   ],
-  //   [
-  //     const IconSeat(isReserved: false,id: 10,),
-  //     const IconSeat(isReserved: false,id: 11,),
-  //     const IconSeat(isReserved: false, id: 12,),
-  //     const IconSeat(isReserved: false,id: 13,),
-  //     const IconSeat(isReserved: false,id: 14,),
-  //     const IconSeat(isReserved: false, id: 15,),
-  //     const IconSeat(isReserved: false,id: 16,),
-  //     const IconSeat(isReserved: false,id: 17,),
-  //     const IconSeat(isReserved: false, id: 18,),
-  //     const IconSeat(isReserved: false, id: 19)
-  //   ],
-  //   [
-  //     const IconSeat(isReserved: false,id: 20,),
-  //     const IconSeat(isReserved: false,id: 21,),
-  //     const IconSeat(isReserved: false, id: 22,),
-  //     const IconSeat(isReserved: false,id: 23,),
-  //     const IconSeat(isReserved: false,id: 24,),
-  //     const IconSeat(isReserved: false, id: 25,),
-  //     const IconSeat(isReserved: false,id: 26,),
-  //     const IconSeat(isReserved: false,id: 27,),
-  //     const IconSeat(isReserved: false, id: 28,),
-  //     const IconSeat(isReserved: false, id: 29)
-  //   ],
-  //   [
-  //     const IconSeat(isReserved: false,id: 30,),
-  //     const IconSeat(isReserved: false,id: 31,),
-  //     const IconSeat(isReserved: false, id: 32,),
-  //     const IconSeat(isReserved: false,id: 33,),
-  //     const IconSeat(isReserved: false,id: 34,),
-  //     const IconSeat(isReserved: false, id: 35,),
-  //     const IconSeat(isReserved: false,id: 36,),
-  //     const IconSeat(isReserved: false,id: 37,),
-  //     const IconSeat(isReserved: false, id: 38,),
-  //     const IconSeat(isReserved: false, id: 39)
 
-  //   ],
-  // ];
+
+
+
 
   
 
@@ -68,8 +20,7 @@ class SeatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<List<IconSeat>> seatsList = seatsMapbyID[scheduleID]!;
-    
+    List<List<IconSeat>> seatsList = icons;
 
     return Scaffold(
       appBar: AppBar(),
@@ -117,7 +68,7 @@ class SeatsScreen extends StatelessWidget {
                                       ),
                           ],
                         ),
-          ///
+          
               ),
             ),
             Row(
@@ -145,13 +96,10 @@ class SeatsScreen extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                    // bool isChanged = !const DeepCollectionEquality().equals(icons, copiedIconsList);
-                    bool isChanged = !(const DeepCollectionEquality().equals(icons, seatsMapbyID[scheduleID]));
-                    print(icons);
-                    print(seatsMapbyID[scheduleID]);  
-                        if (isChanged) {
-                            Navigator.pop(context);
-                        }
+
+                    //bool isChanged = !(const DeepCollectionEquality().equals(icons, seatsMapbyID[scheduleID]));
+                    
+
                 },
                 style: const ButtonStyle(
                   shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
@@ -172,139 +120,3 @@ class SeatsScreen extends StatelessWidget {
 
 
 
-
-
-
-
-
-
-
-
-  // final List<List<IconSeat>> seatsList = const [
-  // [
-  //    IconSeat(id: 1,),
-  //   IconSeat(
-  //     id: 2,
-  //   ),
-  //   IconSeat(
-  //     id: 3,
-  //   ),
-  //   IconSeat(
-  //     id: 4,
-  //   ),
-  //   IconSeat(
-  //     id: 5,
-  //   ),
-  //   IconSeat(
-  //     id: 6,
-  //   ),
-  //   IconSeat(
-  //     id: 7,
-  //   ),
-  //   IconSeat(
-  //     id: 8,
-  //   ),
-  //   IconSeat(
-  //     id: 9,
-  //   ),
-  //   IconSeat(
-  //     id: 10,
-  //   ),
-  // ],
-  // [
-  //   IconSeat(
-  //     id: 1,
-  //   ),
-  //   IconSeat(
-  //     id: 2,
-  //   ),
-  //   IconSeat(
-  //     id: 3,
-  //   ),
-  //   IconSeat(
-  //     id: 4,
-  //   ),
-  //   IconSeat(
-  //     id: 5,
-  //   ),
-  //   IconSeat(
-  //     id: 6,
-  //   ),
-  //   IconSeat(
-  //     id: 7,
-  //   ),
-  //   IconSeat(
-  //     id: 8,
-  //   ),
-  //   IconSeat(
-  //     id: 9,
-  //   ),
-  //   IconSeat(
-  //     id: 10,
-  //   ),
-  // ],
-  // [
-  //   IconSeat(
-  //     id: 1,
-  //   ),
-  //   IconSeat(
-  //     id: 2,
-  //   ),
-  //   IconSeat(
-  //     id: 3,
-  //   ),
-  //   IconSeat(
-  //     id: 4,
-  //   ),
-  //   IconSeat(
-  //     id: 5,
-  //   ),
-  //   IconSeat(
-  //     id: 6,
-  //   ),
-  //   IconSeat(
-  //     id: 7,
-  //   ),
-  //   IconSeat(
-  //     id: 8,
-  //   ),
-  //   IconSeat(
-  //     id: 9,
-  //   ),
-  //   IconSeat(
-  //     id: 10,
-  //   ),
-  // ],
-  //   [
-  //         IconSeat(
-  //     id: 1,
-  //   ),
-  //   IconSeat(
-  //     id: 2,
-  //   ),
-  //   IconSeat(
-  //     id: 3,
-  //   ),
-  //   IconSeat(
-  //     id: 4,
-  //   ),
-  //   IconSeat(
-  //     id: 5,
-  //   ),
-  //   IconSeat(
-  //     id: 6,
-  //   ),
-  //   IconSeat(
-  //     id: 7,
-  //   ),
-  //   IconSeat(
-  //     id: 8,
-  //   ),
-  //   IconSeat(
-  //     id: 9,
-  //   ),
-  //   IconSeat(
-  //     id: 10,
-  //   ),
-  //   ],
-  // ];

@@ -1,20 +1,22 @@
 import 'package:project_frontend/widgets/icon_seat.dart';
 
 class Schedule{
-  String scheduleId;
+  int scheduleId;
+ //int scheduleId;
   String departureTime;
   String arrivalTime;
   String departureCity;
   String arrivalCity;
-  String trainId;
+ String trainId;
+ // int trainId;
   String date;
   Schedule(
-    this.scheduleId,
+   this.scheduleId,
     this.departureTime,
     this.arrivalTime,
     this.departureCity,
     this.arrivalCity,
-    this.trainId,
+   this.trainId,
     this.date
   );
 }
@@ -143,7 +145,7 @@ class Seats{
 }
 
 Map<int,List<List<IconSeat>>> seatsMapbyID= {
-
+  
 };
 
 //seatsMapbyID.putIfAbsent(1, () => [[IconSeat()]]);

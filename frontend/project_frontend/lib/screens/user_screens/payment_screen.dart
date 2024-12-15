@@ -57,11 +57,10 @@ class PaymentScreenState extends State<PaymentScreen>{
               onPressed: () async{
                 if (isCCfull && isCVVfull){
                   widget.reservationData["PaymentStatus"] = "Paid";
-                  print(widget.id);
-                  print(widget.reservationData);
+
                  await ApiService.updateReservation(widget.id.toString(), widget.reservationData);
                   Navigator.pop(context);
-                  //await ApiService.createTicket(ticketData)
+                  //await ApiService.createTicket(ticketData);
                 }
               },
               style: const ButtonStyle(

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   static const String baseUrl = 'http://127.0.0.1:3333';
 
-  static String _formatDate(DateTime date) {
+  static String formatDate(DateTime date) {
     return '${date.year.toString().padLeft(4, '0')}-'
         '${date.month.toString().padLeft(2, '0')}-'
         '${date.day.toString().padLeft(2, '0')}';
@@ -36,8 +36,8 @@ class ApiService {
   }
 
   // Get a passenger by ID
-  static Future<Map<String, dynamic>> getPassengerByEmail(String Email) async {
-    final response = await http.get(Uri.parse('$baseUrl/passenger/by/$Email'));
+  static Future<Map<String, dynamic>> getPassengerByEmail(String email) async {
+    final response = await http.get(Uri.parse('$baseUrl/passenger/by/$email'));
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
@@ -89,7 +89,6 @@ class ApiService {
   // Get all stations
   static Future<List<dynamic>> getAllStations() async {
     final response = await http.get(Uri.parse('$baseUrl/station'));
-    print('Status Code for getAllStations: ${response.statusCode}');
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
@@ -327,8 +326,7 @@ class ApiService {
   // Update a reservation
   static Future<void> updateReservation(String id,
       Map<String, dynamic> reservationData) async {
-    print("Updating Reservation with ID: $id");
-    print("Data: ${jsonEncode(reservationData)}");
+
 
     final response = await http.put(
       Uri.parse('$baseUrl/reservation/$id'),
@@ -339,11 +337,11 @@ class ApiService {
     );
 
     if (response.statusCode != 200) {
-      print("Error Response: ${response.body}");
+
       throw Exception('Failed to update reservation');
     }
 
-    print('Reservation updated successfully');
+
   }
 
   // Delete a reservation
@@ -502,13 +500,10 @@ class ApiService {
 
     // Prepare the request body
     Map<String, dynamic> requestBody = {};
-    if (trainID != null && scheduleDate != null) {
+
       requestBody['trainID'] = trainID;
       requestBody['scheduleDate'] = scheduleDate;
-    } else {
-      requestBody['trainID'] = null;
-      requestBody['scheduleDate'] = null;
-    }
+
 
     try {
       // Make the PUT request to assign/unassign the train
@@ -521,7 +516,6 @@ class ApiService {
       // Handle different response statuses
       if (response.statusCode == 200) {
         // Successfully assigned/unassigned
-        print('Train assignment updated successfully.');
       } else if (response.statusCode == 400 || response.statusCode == 404) {
         // Client-side errors
         final responseBody = jsonDecode(response.body);
@@ -587,12 +581,8 @@ class ApiService {
   }
 
 // Promote a passenger's priority in the waitlist
-<<<<<<< HEAD
-  static Future<void> promoteWaitlistEntry(String waitlistID, String scheduleDate, int seatNumber) async {
-=======
   static Future<void> promoteWaitlistEntry(String waitlistID,
       String scheduleDate, String seatNumber) async {
->>>>>>> ee68c97d4845fa16f21808dba3c23479ae881ccd
     final response = await http.put(
       Uri.parse('$baseUrl/waitlist/promote/$waitlistID'),
       headers: {'Content-Type': 'application/json'},
@@ -605,7 +595,7 @@ class ApiService {
     if (response.statusCode != 200) {
       throw Exception('Failed to promote waitlist entry');
     } else {
-      print("Workingggg !!!");
+
     }
   }
 }

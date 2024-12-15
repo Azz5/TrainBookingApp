@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_frontend/screens/admin_screens/trains_screen_admin.dart';
-import 'package:project_frontend/dataHandler/api_service.dart';
+
 
 class WaitlistCard extends StatelessWidget{
   const WaitlistCard({super.key,required this.passengerID, required this.classism, required this.priority, required this.waitlistID});

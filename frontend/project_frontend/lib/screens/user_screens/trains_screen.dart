@@ -4,7 +4,6 @@ import 'package:project_frontend/screens/user_screens/seats_screen.dart';
 import 'package:project_frontend/models/location_filters.dart';
 import 'package:project_frontend/dataHandler/api_service.dart';
 import 'package:project_frontend/models/models.dart';
-import 'package:project_frontend/widgets/icon_seat.dart';
 
 class TrainsScreen extends StatefulWidget {
   const TrainsScreen({super.key});
@@ -50,14 +49,67 @@ class _TrainsScreenState extends State<TrainsScreen> {
 
     return Column(
       children: [
-        // Date and Filter UI
+  
         Container(
           padding: const EdgeInsets.all(12),
           height: 170,
           child: Card(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Row(
+                  children: [
+                    DropdownMenu<LocationFilter>(
+                      leadingIcon: const Icon(Icons.location_on_outlined),
+                      hintText: "From",
+                      onSelected: (LocationFilter? filter) {
+                        if (filter != null) {
+                          setState(() {
+                            fromFilter.forEach((key, _) {
+                              fromFilter[key] = key == filter;
+                            });
+                          });
+                        }
+                      },
+                      dropdownMenuEntries: const [
+                        DropdownMenuEntry(
+                            value: LocationFilter.riyadh, label: "Riyadh"),
+                        DropdownMenuEntry(
+                            value: LocationFilter.dammam, label: "Dammam"),
+                        DropdownMenuEntry(
+                            value: LocationFilter.jeddah, label: "Jeddah"),
+                        DropdownMenuEntry(
+                            value: LocationFilter.abhah, label: "Abhah"),
+                      ],
+                    ),
+                    const Icon(Icons.arrow_right_alt),
+                    SizedBox(
+                      width: 174,
+                      child: DropdownMenu<LocationFilter>(
+                        leadingIcon: const Icon(Icons.location_on_outlined),
+                        hintText: "To",
+                        onSelected: (LocationFilter? filter) {
+                          if (filter != null) {
+                            setState(() {
+                              toFilter.forEach((key, _) {
+                                toFilter[key] = key == filter;
+                              });
+                            });
+                          }
+                        },
+                        dropdownMenuEntries: const [
+                          DropdownMenuEntry(
+                              value: LocationFilter.riyadh, label: "Riyadh"),
+                          DropdownMenuEntry(
+                              value: LocationFilter.dammam, label: "Dammam"),
+                          DropdownMenuEntry(
+                              value: LocationFilter.jeddah, label: "Jeddah"),
+                          DropdownMenuEntry(
+                              value: LocationFilter.abhah, label: "Abhah"),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 5),
                 Padding(
                   padding: const EdgeInsets.all(14),
@@ -81,7 +133,7 @@ class _TrainsScreenState extends State<TrainsScreen> {
           ),
         ),
 
-        // Trip List
+        
         Expanded(
           child: FutureBuilder<List<dynamic>>(
             future: ApiService.getAllSchedules(),
@@ -98,11 +150,11 @@ class _TrainsScreenState extends State<TrainsScreen> {
                         data["ScheduleDate"].substring(0, 10) == chosenDate)
                     .map((data) {
                   final trip = Schedule(
-                    data['ScheduleID'].toString(),
+                    data['ScheduleID'],
                     data['DepartureTime'],
                     data['ArrivalTime'],
-                    "Dammam", // Replace with actual data if available
-                    "Riyadh", // Replace with actual data if available
+                    "Dammam", 
+                    "Riyadh", 
                     data['TrainID'],
                     data["ScheduleDate"],
                   );
@@ -110,13 +162,13 @@ class _TrainsScreenState extends State<TrainsScreen> {
                   final seatScreen = SeatsScreen(
                     departureTime: trip.departureTime,
                     arrivalTime: trip.arrivalTime,
-                    scheduleID: int.parse(trip.scheduleId),
+                   scheduleID: trip.scheduleId,
                   );
 
                   return Trip(
                     arrivalTime: trip.arrivalTime,
                     departureTime: trip.departureTime,
-                    trainNo: trip.scheduleId,
+                    trainNo: trip.scheduleId.toString(),
                     departureCity: trip.departureCity,
                     arrivalCity: trip.arrivalCity,
                     seatScreen: seatScreen,

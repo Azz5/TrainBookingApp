@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_frontend/dataHandler/api_service.dart';
 import 'package:project_frontend/screens/admin_screens/waitlist_screen.dart';
 
 class TrainWaitlist extends StatelessWidget{

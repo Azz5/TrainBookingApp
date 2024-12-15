@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_frontend/dataHandler/api_service.dart';
+
 
 class TrainWidget extends StatelessWidget{
   const TrainWidget({super.key, required this.widget, required this.trainName});
@@ -10,8 +10,8 @@ class TrainWidget extends StatelessWidget{
 
     return InkWell(
       onTap: (){
-      // Navigator.push(context,MaterialPageRoute(builder: (context) => widget,)),
-      print(ApiService.getAllTrains());},  
+      Navigator.push(context,MaterialPageRoute(builder: (context) => widget,));
+      },  
       child: Container(
         padding: const EdgeInsets.all(8),
         child: Card(

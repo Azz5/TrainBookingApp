@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
  
 class Trip extends StatelessWidget {
   const Trip({
@@ -9,6 +11,7 @@ class Trip extends StatelessWidget {
     required this.departureCity,
     required this.arrivalCity,
     required this.seatScreen,
+
   });
  
   final String departureTime;
@@ -17,12 +20,29 @@ class Trip extends StatelessWidget {
   final String arrivalCity;
   final String trainNo;
   final Widget seatScreen;
+  //   String scheduleId;
+  // String departureTime;
+  // String arrivalTime;
+  // String departureCity;
+  // String arrivalCity;
+  // String trainId;
+  // String date;
+
  
   @override
   Widget build(BuildContext context) {
+      Map<int,String> cities = {
+    1 : "Riyadh",
+    2 : "Dammam",
+    3 : "Jeddah",
+    4 : "Abhah"
+  };
+  Random random = Random();
+  int randomNumber = random.nextInt(4) + 1;
+  int randomNumber2 = random.nextInt(4) + 1;
     return InkWell(
       onTap: () {
-        final reservedSeat = Navigator.push(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => seatScreen),
         );
@@ -63,7 +83,7 @@ class Trip extends StatelessWidget {
                     departureTime,
                     style: const TextStyle(fontSize: 20),
                   ),
-                  Text(departureCity),
+                  Text(cities[randomNumber]!),
                 ],
               ),
               const SizedBox(width: 15),
@@ -83,7 +103,7 @@ class Trip extends StatelessWidget {
                     arrivalTime,
                     style: const TextStyle(fontSize: 20),
                   ),
-                  Text(arrivalCity),
+                  Text(cities[randomNumber2]!)
                 ],
               ),
             ],

@@ -53,11 +53,11 @@ class TrainAdminState extends State<TrainAdmin>{
                 Text(widget.nameAR),
               ],
             ),
-            Wrap(
+            Row(
               children: [
                 IconButton(onPressed: (){selectDate();},style: const ButtonStyle(iconColor: WidgetStatePropertyAll(Color.fromARGB(255, 34, 9, 73))) ,icon: const Icon(Icons.date_range)),
                 SizedBox(
-                  width: 83,
+                  width: 70,
                   child: chosenDate == "" ? const Text("") : Text(chosenDate),
                   ),
                 TextButton(onPressed: ()async{

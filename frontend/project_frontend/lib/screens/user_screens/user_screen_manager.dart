@@ -17,9 +17,8 @@ class _UserScreenState extends State<UserScreen> {
   try {
     await FirebaseAuth.instance.signOut();
     Navigator.pushReplacementNamed(context, '/login');
-    print("fasdfdsfsdafdfdsafads");
   } catch (e) {
-    print('Error during logout: $e');
+    //
   }
 }
   int index = 0;

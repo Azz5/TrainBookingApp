@@ -21,12 +21,13 @@ class IconSeat extends StatefulWidget{
       int r = int.parse(widget.id.toString()[2]);
       setState(() {
         isPressed = !isPressed;
-        //icons[c][r] = IconSeat(isReserved: isPressed, id: int.parse(id));
+
         seatsMapbyID[index]?[c][r] = IconSeat(isReserved: isPressed, id: widget.id);
-        print(widget.id);
+
         
       });
-      // widget.isReserved makes the pressed unpressable and saved, remove it makes the press pressable and unsaved
+
+      
     }, icon: Icon(Icons.chair, color: (isPressed || widget.isReserved)? const Color.fromARGB(255, 29, 13, 102) : Colors.grey,));
   }
   }

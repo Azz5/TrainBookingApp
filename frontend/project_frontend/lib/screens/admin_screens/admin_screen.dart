@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_frontend/screens/admin_screens/modifications_screen.dart';
 import 'package:project_frontend/screens/admin_screens/stations_screen.dart';
-import 'package:project_frontend/widgets/admin_widgets/staff_card.dart';
 import 'package:project_frontend/screens/admin_screens/staff_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:project_frontend/screens/registration_screens/login_screen.dart';
 import 'package:project_frontend/screens/admin_screens/tains_waitlist_screen.dart';
 
 
@@ -28,9 +26,9 @@ class AdminScreenState extends State<AdminScreen>{
   try {
     await FirebaseAuth.instance.signOut();
     Navigator.pushReplacementNamed(context, '/login');
-    print("fasdfdsfsdafdfdsafads");
+
   } catch (e) {
-    print('Error during logout: $e');
+    //
   }
 }
   @override
